@@ -31,36 +31,19 @@
                             2 * Math.PI
                         );
                         ctx.fill();
-                        ctx.beginPath();
-                        ctx.moveTo(shape.points[0][0], shape.points[0][1]);
-                        for (let point of shape.points.slice(1)) {
-                            ctx.lineTo(point[0], point[1]);
-                        }
-                        ctx.stroke();
+                        drawPath(ctx, shape.points);
                         break;
                     case "rect":
-                        ctx.strokeRect(
-                            shape.points[0][0],
-                            shape.points[0][1],
-                            shape.points[1][0] - shape.points[0][0],
-                            shape.points[1][1] - shape.points[0][1]
-                        );
+                        drawRect(ctx, shape.points[0], shape.points[1], false);
                         break;
                     case "frect":
-                        ctx.fillRect(
-                            shape.points[0][0],
-                            shape.points[0][1],
-                            shape.points[1][0] - shape.points[0][0],
-                            shape.points[1][1] - shape.points[0][1]
-                        );
+                        drawRect(ctx, shape.points[0], shape.points[1], true);
                         break;
                     case "oval":
-                        drawEllipse(ctx, shape.points[0], shape.points[1]);
-                        ctx.stroke();
+                        drawEllipse(ctx, shape.points[0], shape.points[1], false);
                         break;
                     case "foval":                        
-                        drawEllipse(ctx, shape.points[0], shape.points[1]);
-                        ctx.fill();
+                        drawEllipse(ctx, shape.points[0], shape.points[1], true);
                         break;
                 }
             },
@@ -87,7 +70,34 @@
         }
     };
     
-    function drawEllipse(ctx, fromPos, toPos) {
+    
+    function drawPath(ctx, points) {
+        ctx.beginPath();
+        ctx.moveTo(points[0][0], points[0][1]);
+        for (let point of points.slice(1)) {
+            ctx.lineTo(point[0], point[1]);
+        }
+        ctx.stroke();
+    }
+    
+    
+    function drawRect(ctx, fromPos, toPos, fill) {
+        let method;
+        if (fill) {
+            method = "fillRect";
+        } else {
+            method = "strokeRect";
+        }
+        ctx[method](
+            fromPos[0],
+            fromPos[1],
+            toPos[0] - fromPos[0],
+            toPos[1] - fromPos[1]
+        );
+    }
+    
+    
+    function drawEllipse(ctx, fromPos, toPos, fill) {
         let width = toPos[0] - fromPos[0];
         let height = toPos[1] - fromPos[1];
         ctx.beginPath();
@@ -108,6 +118,11 @@
             fromPos[0] + width / 2,
             fromPos[1]
         );
+        if (fill) {
+            ctx.fill();
+        } else {
+            ctx.stroke();
+        }
     }
 </script>
 
