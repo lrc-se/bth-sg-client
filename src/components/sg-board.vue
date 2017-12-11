@@ -64,8 +64,8 @@
                 this.curShape.points = [];
             },
             
-            setDrawType(type) {
-                this.curShape.type = type;
+            clear() {
+                this.$refs.bgCanvas.clear(true);
             }
         }
     };
