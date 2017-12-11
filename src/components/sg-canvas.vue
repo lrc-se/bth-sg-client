@@ -54,6 +54,14 @@
                             shape.points[1][1] - shape.points[0][1]
                         );
                         break;
+                    case "oval":
+                        drawEllipse(ctx, shape.points[0], shape.points[1]);
+                        ctx.stroke();
+                        break;
+                    case "foval":                        
+                        drawEllipse(ctx, shape.points[0], shape.points[1]);
+                        ctx.fill();
+                        break;
                 }
             },
             
@@ -78,6 +86,29 @@
             }
         }
     };
+    
+    function drawEllipse(ctx, fromPos, toPos) {
+        let width = toPos[0] - fromPos[0];
+        let height = toPos[1] - fromPos[1];
+        ctx.beginPath();
+        ctx.moveTo(fromPos[0] + width / 2, fromPos[1]);
+        ctx.bezierCurveTo(
+            toPos[0],
+            fromPos[1],
+            toPos[0],
+            toPos[1],
+            fromPos[0] + width / 2,
+            toPos[1]
+        );
+        ctx.bezierCurveTo(
+            fromPos[0],
+            toPos[1],
+            fromPos[0],
+            fromPos[1],
+            fromPos[0] + width / 2,
+            fromPos[1]
+        );
+    }
 </script>
 
 <style>
