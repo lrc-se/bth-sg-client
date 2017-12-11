@@ -21,6 +21,7 @@
                 ctx.lineJoin = "round";
                 switch (shape.type) {
                     case "path":
+                    case "line":
                         ctx.beginPath();
                         ctx.arc(
                             shape.points[0][0],

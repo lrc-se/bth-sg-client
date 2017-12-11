@@ -11,9 +11,15 @@
     export default {
         name: "sg-board",
         
+        props: ["draw-type"],
+        
         data() {
             return {
-                curShape: {},
+                curShape: {
+                    type: "path",
+                    color: "#000",
+                    width: 2
+                },
                 isDrawing: false
             };
         },
@@ -28,10 +34,8 @@
                     return;
                 }
                 
-                this.curShape.type = "path";
                 this.curShape.points = [[e.offsetX, e.offsetY]];
-                this.curShape.color = "#000";
-                this.curShape.width = 2;
+                this.curShape.type = this.drawType;
                 this.isDrawing = true;
             },
             
@@ -40,7 +44,11 @@
                     return;
                 }
                 
-                this.curShape.points.push([e.offsetX, e.offsetY]);
+                if (this.curShape.type == "path") {
+                    this.curShape.points.push([e.offsetX, e.offsetY]);
+                } else {
+                    this.curShape.points[1] = [e.offsetX, e.offsetY];
+                }
                 this.$refs.drawCanvas.clear();
                 this.$refs.drawCanvas.draw(this.curShape);
             },
@@ -54,6 +62,10 @@
                 this.$refs.bgCanvas.addShape(this.curShape, true);
                 this.$refs.drawCanvas.clear(true);
                 this.curShape.points = [];
+            },
+            
+            setDrawType(type) {
+                this.curShape.type = type;
             }
         }
     };

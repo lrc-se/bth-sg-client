@@ -1,16 +1,30 @@
 <template>
     <div id="app">
-        <sg-board></sg-board>
+        <sg-board :draw-type="drawType"></sg-board>
+        <div>
+            <sg-button text="Pensel" @click.native="drawType = 'path'"></sg-button>
+            <sg-button text="Linje" @click.native="drawType = 'line'"></sg-button>
+            <span>{{ drawType }}</span>
+        </div>
     </div>
 </template>
 
 <script>
     import SgBoard from "./components/sg-board";
+    import SgButton from "./components/sg-button";
     
     export default {
         name: "app",
+        
+        data() {
+            return {
+                drawType: "path"
+            };
+        },
+        
         components: {
-            "sg-board": SgBoard
+            "sg-board": SgBoard,
+            "sg-button": SgButton
         }
     };
 </script>
