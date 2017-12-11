@@ -1,7 +1,7 @@
 <template>
     <div id="sg-board" @mousedown="startShape" @mousemove="updateShape" @mouseup="endShape">
         <sg-canvas ref="bgCanvas"></sg-canvas>
-        <sg-canvas ref="drawCanvas"></sg-canvas>        
+        <sg-canvas ref="drawCanvas"></sg-canvas>
     </div>
 </template>
 

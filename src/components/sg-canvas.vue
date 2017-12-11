@@ -38,6 +38,22 @@
                         }
                         ctx.stroke();
                         break;
+                    case "rect":
+                        ctx.strokeRect(
+                            shape.points[0][0],
+                            shape.points[0][1],
+                            shape.points[1][0] - shape.points[0][0],
+                            shape.points[1][1] - shape.points[0][1]
+                        );
+                        break;
+                    case "frect":
+                        ctx.fillRect(
+                            shape.points[0][0],
+                            shape.points[0][1],
+                            shape.points[1][0] - shape.points[0][0],
+                            shape.points[1][1] - shape.points[0][1]
+                        );
+                        break;
                 }
             },
             
