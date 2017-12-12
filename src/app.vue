@@ -1,6 +1,8 @@
 <template>
     <div id="app">
         <header>
+            <div id="drawer">Nu ritar: <strong>{{ drawer || "--" }}</strong></div>
+            <div id="word">Ord att rita: <strong>{{ word || "--" }}</strong></div>
             <sg-countdown :seconds="seconds"></sg-countdown>
         </header>
         <sg-board ref="board" :draw-type="drawType" :draw-width="drawWidth"></sg-board>
@@ -35,6 +37,8 @@
             return {
                 drawType: "path",
                 drawWidth: 2,
+                drawer: null,
+                word: null,
                 seconds: null
             };
         },
@@ -46,6 +50,12 @@
         },
         
         created() {
+            Dispatcher.$on("drawer", (name) => {
+                this.drawer = name;
+            });
+            Dispatcher.$on("word", (word) => {
+                this.word = word.toUpperCase();
+            });
             Dispatcher.$on("countdown", (sec) => {
                 this.seconds = sec;
             });
