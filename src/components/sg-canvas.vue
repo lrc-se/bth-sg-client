@@ -22,15 +22,7 @@
                 switch (shape.type) {
                     case "path":
                     case "line":
-                        ctx.beginPath();
-                        ctx.arc(
-                            shape.points[0][0],
-                            shape.points[0][1],
-                            shape.width / 2,
-                            0,
-                            2 * Math.PI
-                        );
-                        ctx.fill();
+                        drawPixel(ctx, shape.points[0], shape.width);
                         drawPath(ctx, shape.points);
                         break;
                     case "rect":
@@ -71,6 +63,13 @@
     };
     
     
+    function drawPixel(ctx, point, size) {
+        ctx.beginPath();
+        ctx.arc(point[0], point[1], size / 2, 0, 2 * Math.PI);
+        ctx.fill();
+    }
+    
+    
     function drawPath(ctx, points) {
         ctx.beginPath();
         ctx.moveTo(points[0][0], points[0][1]);
@@ -88,12 +87,7 @@
         } else {
             method = "strokeRect";
         }
-        ctx[method](
-            fromPos[0],
-            fromPos[1],
-            toPos[0] - fromPos[0],
-            toPos[1] - fromPos[1]
-        );
+        ctx[method](fromPos[0], fromPos[1], toPos[0] - fromPos[0], toPos[1] - fromPos[1]);
     }
     
     
