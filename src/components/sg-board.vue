@@ -33,6 +33,7 @@
         
         created() {
             Dispatcher.$on("clear", this.clear);
+            Dispatcher.$on("undo", this.undo);
         },
         
         methods: {
@@ -72,11 +73,14 @@
                 }
                 this.$refs.bgCanvas.addShape(this.curShape, true);
                 this.$refs.drawCanvas.clear(true);
-                this.curShape.points = [];
             },
             
             clear() {
                 this.$refs.bgCanvas.clear(true);
+            },
+            
+            undo() {
+                this.$refs.bgCanvas.undo();
             }
         }
     };

@@ -45,9 +45,11 @@
             },
             
             addShape(shape, draw) {
-                this.shapes.push(shape);
+                let newShape = {};
+                Object.assign(newShape, shape);
+                this.shapes.push(newShape);
                 if (draw) {
-                    this.draw(shape);
+                    this.draw(newShape);
                 }
             },
             
@@ -57,6 +59,11 @@
                 if (clearShapes) {
                     this.shapes = [];
                 }
+            },
+            
+            undo() {
+                this.shapes.pop();
+                this.redraw();
             }
         }
     };

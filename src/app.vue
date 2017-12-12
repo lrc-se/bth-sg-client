@@ -11,10 +11,13 @@
             <sg-button text="Fylld rektangel" :selected="drawType == 'frect'" @click.native="drawType = 'frect'"></sg-button>
             <sg-button text="Oval" :selected="drawType == 'oval'" @click.native="drawType = 'oval'"></sg-button>
             <sg-button text="Fylld oval" :selected="drawType == 'foval'" @click.native="drawType = 'foval'"></sg-button>
-            <sg-button text="Rensa" @click.native="clearBoard"></sg-button>
         </div>
         <div>
             Linjebredd: <input type="range" min="1" max="10" v-model="drawWidth">
+        </div>
+        <div>
+            <sg-button text="Ångra" @click.native="undo"></sg-button>
+            <sg-button text="Rensa" @click.native="clearBoard"></sg-button>
         </div>
     </div>
 </template>
@@ -49,6 +52,10 @@
         },
         
         methods: {
+            undo() {
+                Dispatcher.$emit("undo");
+            },
+            
             clearBoard() {
                 Dispatcher.$emit("clear");
             }
