@@ -64,6 +64,9 @@
                 }
                 
                 this.isDrawing = false;
+                if (this.curShape.points.length == 1) {
+                    this.curShape.points.push([e.offsetX, e.offsetY]);
+                }
                 this.$refs.bgCanvas.addShape(this.curShape, true);
                 this.$refs.drawCanvas.clear(true);
                 this.curShape.points = [];
