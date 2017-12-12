@@ -6,6 +6,7 @@
 </template>
 
 <script>
+    import Dispatcher from "../dispatcher";
     import SgCanvas from "./sg-canvas";
     
     export default {
@@ -26,6 +27,10 @@
         
         components: {
             "sg-canvas": SgCanvas
+        },
+        
+        created() {
+            Dispatcher.$on("clear", this.clear);
         },
         
         methods: {

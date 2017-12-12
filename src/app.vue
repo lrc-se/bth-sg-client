@@ -15,6 +15,7 @@
 </template>
 
 <script>
+    import Dispatcher from "./dispatcher";
     import SgBoard from "./components/sg-board";
     import SgButton from "./components/sg-button";
     
@@ -34,7 +35,7 @@
         
         methods: {
             clearBoard() {
-                this.$refs.board.clear();
+                Dispatcher.$emit("clear");
             }
         }
     };
