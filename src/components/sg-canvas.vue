@@ -18,7 +18,6 @@
                 ctx.strokeStyle = shape.color;
                 ctx.lineWidth = shape.width;
                 ctx.lineCap = "round";
-                ctx.lineJoin = "round";
                 switch (shape.type) {
                     case "path":
                     case "line":
@@ -64,6 +63,7 @@
     
     
     function drawPixel(ctx, point, size) {
+        ctx.lineJoin = "round";
         ctx.beginPath();
         ctx.arc(point[0], point[1], size / 2, 0, 2 * Math.PI);
         ctx.fill();
@@ -71,6 +71,7 @@
     
     
     function drawPath(ctx, points) {
+        ctx.lineJoin = "round";
         ctx.beginPath();
         ctx.moveTo(points[0][0], points[0][1]);
         for (let point of points.slice(1)) {
@@ -81,6 +82,7 @@
     
     
     function drawRect(ctx, fromPos, toPos, fill) {
+        ctx.lineJoin = "miter";
         let method;
         if (fill) {
             method = "fillRect";
@@ -92,6 +94,7 @@
     
     
     function drawEllipse(ctx, fromPos, toPos, fill) {
+        ctx.lineJoin = "round";
         let width = toPos[0] - fromPos[0];
         let height = toPos[1] - fromPos[1];
         ctx.beginPath();

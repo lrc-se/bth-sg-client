@@ -12,14 +12,16 @@
     export default {
         name: "sg-board",
         
-        props: ["draw-type"],
+        props: [
+            "draw-type",
+            "draw-width"
+        ],
         
         data() {
             return {
                 curShape: {
                     type: "path",
-                    color: "#000",
-                    width: 2
+                    color: "#000"
                 },
                 isDrawing: false
             };
@@ -41,6 +43,7 @@
                 
                 this.curShape.points = [[e.offsetX, e.offsetY]];
                 this.curShape.type = this.drawType;
+                this.curShape.width = this.drawWidth;
                 this.isDrawing = true;
             },
             

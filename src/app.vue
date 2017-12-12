@@ -3,7 +3,7 @@
         <header>
             <sg-countdown :seconds="seconds"></sg-countdown>
         </header>
-        <sg-board ref="board" :draw-type="drawType"></sg-board>
+        <sg-board ref="board" :draw-type="drawType" :draw-width="drawWidth"></sg-board>
         <div>
             <sg-button text="Pensel" :selected="drawType == 'path'" @click.native="drawType = 'path'"></sg-button>
             <sg-button text="Linje" :selected="drawType == 'line'" @click.native="drawType = 'line'"></sg-button>
@@ -12,7 +12,9 @@
             <sg-button text="Oval" :selected="drawType == 'oval'" @click.native="drawType = 'oval'"></sg-button>
             <sg-button text="Fylld oval" :selected="drawType == 'foval'" @click.native="drawType = 'foval'"></sg-button>
             <sg-button text="Rensa" @click.native="clearBoard"></sg-button>
-            <span>{{ drawType }}</span>
+        </div>
+        <div>
+            Linjebredd: <input type="range" min="1" max="10" v-model="drawWidth">
         </div>
     </div>
 </template>
@@ -29,6 +31,7 @@
         data() {
             return {
                 drawType: "path",
+                drawWidth: 2,
                 seconds: null
             };
         },
