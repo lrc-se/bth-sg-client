@@ -1,8 +1,12 @@
-# sg-client
+Skissa & Gissa (client)
+=======================
 
-> Skissa & Gissa (client)
 
-## Build Setup
+This is the client part of a re-implementation of the Skissa & Gissa game. Or, at least it is meant to evolve into that at some point...
+
+
+Development
+-----------
 
 ``` bash
 # install dependencies
@@ -24,4 +28,10 @@ npm run unit
 npm test
 ```
 
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+
+About
+-----
+
+**Type:** School project @[BTH](https://www.bth.se/)  
+**License:** MIT  
+**Author:** [LRC](mailto:kabc16@student.bth.se)
