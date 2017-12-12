@@ -21,6 +21,9 @@
             <sg-button text="Ångra" @click.native="undo"></sg-button>
             <sg-button text="Rensa" @click.native="clearBoard"></sg-button>
         </div>
+        <div>
+            <sg-chat></sg-chat>
+        </div>
     </div>
 </template>
 
@@ -29,6 +32,7 @@
     import SgCountdown from "./components/sg-countdown";
     import SgBoard from "./components/sg-board";
     import SgButton from "./components/sg-button";
+    import SgChat from "./components/sg-chat";
     
     export default {
         name: "app",
@@ -46,7 +50,8 @@
         components: {
             "sg-countdown": SgCountdown,
             "sg-board": SgBoard,
-            "sg-button": SgButton
+            "sg-button": SgButton,
+            "sg-chat": SgChat
         },
         
         created() {
