@@ -1,5 +1,8 @@
 <template>
     <div id="app">
+        <header>
+            <sg-countdown :seconds="seconds"></sg-countdown>
+        </header>
         <sg-board ref="board" :draw-type="drawType"></sg-board>
         <div>
             <sg-button text="Pensel" :selected="drawType == 'path'" @click.native="drawType = 'path'"></sg-button>
@@ -16,6 +19,7 @@
 
 <script>
     import Dispatcher from "./dispatcher";
+    import SgCountdown from "./components/sg-countdown";
     import SgBoard from "./components/sg-board";
     import SgButton from "./components/sg-button";
     
@@ -24,13 +28,21 @@
         
         data() {
             return {
-                drawType: "path"
+                drawType: "path",
+                seconds: null
             };
         },
         
         components: {
+            "sg-countdown": SgCountdown,
             "sg-board": SgBoard,
             "sg-button": SgButton
+        },
+        
+        created() {
+            Dispatcher.$on("countdown", (sec) => {
+                this.seconds = sec;
+            });
         },
         
         methods: {
@@ -42,5 +54,13 @@
 </script>
 
 <style>
+    #app {
+        width: 804px;
+    }
     
+    header {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+    }
 </style>
