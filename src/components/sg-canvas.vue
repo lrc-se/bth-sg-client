@@ -45,11 +45,9 @@
             },
             
             addShape(shape, draw) {
-                let newShape = {};
-                Object.assign(newShape, shape);
-                this.shapes.push(newShape);
+                this.shapes.push(shape);
                 if (draw) {
-                    this.draw(newShape);
+                    this.draw(shape);
                 }
             },
             

@@ -71,7 +71,9 @@
                 if (this.curShape.points.length == 1) {
                     this.curShape.points.push([e.offsetX, e.offsetY]);
                 }
-                this.$refs.bgCanvas.addShape(this.curShape, true);
+                let shape = {};
+                Object.assign(shape, this.curShape);
+                this.$refs.bgCanvas.addShape(shape, true);
                 this.$refs.drawCanvas.clear(true);
             },
             
