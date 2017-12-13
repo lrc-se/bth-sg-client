@@ -93,7 +93,7 @@ function handleMessage(e) {
 function handleHandshake(data) {
     if (data.cmd == "GDAYMATE") {
         Client.status = "login";
-        sendCmd("LEMMEIN", Client.nick);
+        sendCommand("LEMMEIN", Client.nick);
     } else {
         Client.disconnect("Felaktigt serversvar vid anslutning.");
     }
@@ -142,7 +142,7 @@ function handleCommand(data) {
  * @param   {string}    cmd     Name of command.
  * @param   {object}    [data]  Data payload, if any.
  */
-function sendCmd(cmd, data) {
+function sendCommand(cmd, data) {
     if (conn && conn.readyState === WebSocket.OPEN) {
         conn.send(JSON.stringify({ cmd, data }));
     }
@@ -182,7 +182,7 @@ export default new Vue({
         },
         
         disconnect(msg) {
-            sendCmd("SEEYA");
+            sendCommand("SEEYA");
             this.status = "offline";
             conn.close();
             conn = null;
@@ -195,7 +195,7 @@ export default new Vue({
         emitAndSend(evnt, data) {
             this.$emit(evnt, data);
             if (eventCommands[evnt]) {
-                sendCmd(eventCommands[evnt], data);
+                sendCommand(eventCommands[evnt], data);
             }
         }
     }
