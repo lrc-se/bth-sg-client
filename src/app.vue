@@ -70,6 +70,8 @@
             Client.$on("countdown", (sec) => {
                 this.seconds = sec;
             });
+            
+            Client.nick = "test";
         },
         
         methods: {

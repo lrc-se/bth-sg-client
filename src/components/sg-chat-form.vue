@@ -1,8 +1,8 @@
 <template>
-    <form id="sg-chat-form" @submit.prevent>
+    <div id="sg-chat-form">
         Meddelande: <input type="text" v-model="message" @keyup.enter.prevent="sendMessage">
         <input type="button" value="Skicka" @click="sendMessage">
-    </form>
+    </div>
 </template>
 
 <script>
@@ -22,7 +22,7 @@
                 if (this.message) {
                     Client.emitAndSend("msg", {
                         type: "chat",
-                        nick: "test",
+                        nick: Client.nick,
                         text: this.message
                     });
                     this.message = "";
