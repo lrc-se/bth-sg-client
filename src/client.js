@@ -16,6 +16,7 @@ let conn = null;
  */
 function startHandshake() {
     Client.status = "handshake";
+    sendCommand("HOWDY");
 }
 
 
@@ -25,7 +26,8 @@ function startHandshake() {
  * @param   {object}    e   Event object.
  */
 function handleDisconnection(e) {
-    
+    Client.status = "offline";
+    conn = null;
 }
 
 
@@ -63,7 +65,12 @@ function handleMessage(e) {
  * @param   {object}    data    Message data.
  */
 function handleHandshake(data) {
-    
+    if (data.cmd == "GDAYMATE") {
+        Client.status = "login";
+        sendCmd("LEMMEIN", Client.nick);
+    } else {
+        Client.disconnect("Felaktigt serversvar vid anslutning.");
+    }
 }
 
 
@@ -73,7 +80,19 @@ function handleHandshake(data) {
  * @param   {object}    data    Message data.
  */
 function handleLogin(data) {
-    
+    switch (data.cmd) {
+        case "CMONIN":
+            Client.status = "online";
+            break;
+        case "FULLHOUSE":
+            Client.disconnect("Spelet är fullt.");
+            break;
+        case "DOPPELGANGER":
+            Client.disconnect("Smeknamnet är upptaget.");
+            break;
+        default:
+            Client.disconnect("Felaktigt serversvar vid anslutning.");
+    }
 }
 
 
@@ -144,9 +163,14 @@ export default new Vue({
             conn.onmessage = handleMessage;
         },
         
-        disconnect() {
-            conn.close();
+        disconnect(msg) {
             this.status = "offline";
+            conn.close();
+            conn = null;
+            
+            if (msg) {
+                alert(msg);
+            }
         }
     }
 });
