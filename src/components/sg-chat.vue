@@ -6,7 +6,7 @@
 </template>
 
 <script>
-    import Dispatcher from "../dispatcher";
+    import Client from "../client";
     import SgChatRoll from "./sg-chat-roll";
     import SgChatForm from "./sg-chat-form";
     
@@ -25,7 +25,7 @@
         },
         
         created() {
-            Dispatcher.$on("msg", this.addMessage);
+            Client.$on("msg", this.addMessage);
         },
         
         methods: {

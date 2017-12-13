@@ -6,7 +6,7 @@
 </template>
 
 <script>
-    import Dispatcher from "../dispatcher";
+    import Client from "../client";
     import SgCanvas from "./sg-canvas";
     
     export default {
@@ -32,8 +32,8 @@
         },
         
         created() {
-            Dispatcher.$on("clear", this.clear);
-            Dispatcher.$on("undo", this.undo);
+            Client.$on("clear", this.clear);
+            Client.$on("undo", this.undo);
         },
         
         methods: {

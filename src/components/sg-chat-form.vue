@@ -6,7 +6,7 @@
 </template>
 
 <script>
-    import Dispatcher from "../dispatcher";
+    import Client from "../client";
     
     export default {
         name: "sg-chat-form",
@@ -20,7 +20,7 @@
         methods: {
             sendMessage() {
                 if (this.message) {
-                    Dispatcher.$emit("msg", {
+                    Client.$emit("msg", {
                         type: "chat",
                         nick: "test",
                         text: this.message

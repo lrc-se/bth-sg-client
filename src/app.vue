@@ -28,7 +28,7 @@
 </template>
 
 <script>
-    import Dispatcher from "./dispatcher";
+    import Client from "./client";
     import SgCountdown from "./components/sg-countdown";
     import SgBoard from "./components/sg-board";
     import SgButton from "./components/sg-button";
@@ -55,24 +55,24 @@
         },
         
         created() {
-            Dispatcher.$on("drawer", (name) => {
+            Client.$on("drawer", (name) => {
                 this.drawer = name;
             });
-            Dispatcher.$on("word", (word) => {
+            Client.$on("word", (word) => {
                 this.word = word.toUpperCase();
             });
-            Dispatcher.$on("countdown", (sec) => {
+            Client.$on("countdown", (sec) => {
                 this.seconds = sec;
             });
         },
         
         methods: {
             undo() {
-                Dispatcher.$emit("undo");
+                Client.$emit("undo");
             },
             
             clearBoard() {
-                Dispatcher.$emit("clear");
+                Client.$emit("clear");
             }
         }
     };
