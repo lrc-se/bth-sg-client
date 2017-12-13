@@ -7,6 +7,22 @@
 import Vue from "vue";
 
 
+const commandEvents = {
+    DOODLE: "draw",
+    GOTIT: "correct",
+    ITSABUST: "timeout",
+    OOPS: "undo",
+    PEEKABOO: "join",
+    POSSE: "players",
+    QUOTH: "msg",
+    SCRAP: "clear",
+    SHUTEYE: "pause",
+    SKEDADDLE: "part",
+    THEYREIT: "drawer",
+    TMINUS: "countdown",
+    YOUREIT: "word"
+};
+
 let Client = null;
 let conn = null;
 
@@ -84,11 +100,11 @@ function handleLogin(data) {
         case "CMONIN":
             Client.status = "online";
             break;
-        case "FULLHOUSE":
-            Client.disconnect("Spelet är fullt.");
-            break;
         case "DOPPELGANGER":
             Client.disconnect("Smeknamnet är upptaget.");
+            break;
+        case "FULLHOUSE":
+            Client.disconnect("Spelet är fullt.");
             break;
         default:
             Client.disconnect("Felaktigt serversvar vid anslutning.");
@@ -102,18 +118,10 @@ function handleLogin(data) {
  * @param   {object}    data    Command data.
  */
 function handleCommand(data) {
-    switch (data.cmd) {
-        case "QUOTH":
-            Client.$emit("msg", data.data);
-            break;
-        case "DOODLE":
-            Client.$emit("draw", data.data);
-            break;
-        case "OOPS":
-            Client.$emit("undo");
-            break;
-        default:
-            console.warn("Unknown command:", data.cmd);
+    if (commandEvents[data.cmd]) {
+        Client.$emit(commandEvents[data.cmd], data.data);
+    } else {
+        console.warn("Unknown command:", data.cmd);
     }
 }
 

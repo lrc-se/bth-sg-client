@@ -60,6 +60,7 @@
             });
             Client.$on("word", (word) => {
                 this.word = word.toUpperCase();
+                this.drawer = Client.nick;
             });
             Client.$on("countdown", (sec) => {
                 this.seconds = sec;
