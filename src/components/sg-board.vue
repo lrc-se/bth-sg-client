@@ -71,10 +71,12 @@
                 if (this.curShape.points.length == 1) {
                     this.curShape.points.push([e.offsetX, e.offsetY]);
                 }
+                
                 let shape = {};
                 Object.assign(shape, this.curShape);
                 this.$refs.bgCanvas.addShape(shape, true);
                 this.$refs.drawCanvas.clear(true);
+                Client.send("draw", shape);
             },
             
             clear() {

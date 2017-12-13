@@ -192,11 +192,15 @@ export default new Vue({
             }
         },
         
-        emitAndSend(evnt, data) {
-            this.$emit(evnt, data);
+        send(evnt, data) {
             if (eventCommands[evnt]) {
                 sendCommand(eventCommands[evnt], data);
             }
+        },
+        
+        emitAndSend(evnt, data) {
+            this.$emit(evnt, data);
+            this.send(evnt, data);
         }
     }
 });
