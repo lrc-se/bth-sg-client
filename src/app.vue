@@ -24,6 +24,9 @@
         <div>
             <sg-chat></sg-chat>
         </div>
+        <div>
+            <sg-player-list></sg-player-list>
+        </div>
     </div>
 </template>
 
@@ -33,6 +36,7 @@
     import SgBoard from "./components/sg-board";
     import SgButton from "./components/sg-button";
     import SgChat from "./components/sg-chat";
+    import SgPlayerList from "./components/sg-player-list";
     
     export default {
         name: "app",
@@ -51,7 +55,8 @@
             "sg-countdown": SgCountdown,
             "sg-board": SgBoard,
             "sg-button": SgButton,
-            "sg-chat": SgChat
+            "sg-chat": SgChat,
+            "sg-player-list": SgPlayerList
         },
         
         created() {
