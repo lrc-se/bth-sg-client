@@ -69,11 +69,11 @@
         
         methods: {
             undo() {
-                Client.$emit("undo");
+                Client.emitAndSend("undo");
             },
             
             clearBoard() {
-                Client.$emit("clear");
+                Client.emitAndSend("clear");
             }
         }
     };

@@ -7,6 +7,7 @@
 import Vue from "vue";
 
 
+// events for incoming commands
 const commandEvents = {
     DOODLE: "draw",
     GOTIT: "correct",
@@ -22,6 +23,15 @@ const commandEvents = {
     TMINUS: "countdown",
     YOUREIT: "word"
 };
+
+// commands for outgoing events
+const eventCommands = {
+    clear: "SCRAP",
+    draw: "DOODLE",
+    msg: "QUOTH",
+    undo: "OOPS"
+};
+
 
 let Client = null;
 let conn = null;
@@ -172,12 +182,20 @@ export default new Vue({
         },
         
         disconnect(msg) {
+            sendCmd("SEEYA");
             this.status = "offline";
             conn.close();
             conn = null;
             
             if (msg) {
                 alert(msg);
+            }
+        },
+        
+        emitAndSend(evnt, data) {
+            this.$emit(evnt, data);
+            if (eventCommands[evnt]) {
+                sendCmd(eventCommands[evnt], data);
             }
         }
     }

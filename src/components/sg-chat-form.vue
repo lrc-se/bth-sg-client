@@ -20,7 +20,7 @@
         methods: {
             sendMessage() {
                 if (this.message) {
-                    Client.$emit("msg", {
+                    Client.emitAndSend("msg", {
                         type: "chat",
                         nick: "test",
                         text: this.message
