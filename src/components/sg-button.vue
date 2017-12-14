@@ -1,6 +1,8 @@
 <template>
-    <button class="sg-button" :class="{ selected }">
-        <span v-if="text">{{ text }}</span>
+    <button class="sg-button" :class="{ selected }" :style="{ backgroundColor: bgColor }">
+        <img :src="require(`../img/${icon}`)" :alt="text" v-if="icon">
+        <span v-else="text">{{ text }}</span>
+        <span v-if="!icon && !text">&nbsp;</span>
     </button>
 </template>
 
@@ -10,7 +12,9 @@
         
         props: [
             "text",
-            "selected"
+            "icon",
+            "selected",
+            "bg-color"
         ]
     };
 </script>

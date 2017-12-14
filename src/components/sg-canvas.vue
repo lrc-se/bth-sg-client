@@ -16,6 +16,7 @@
             draw(shape) {
                 let ctx = this.$el.getContext("2d");
                 ctx.strokeStyle = shape.color;
+                ctx.fillStyle = shape.color;
                 ctx.lineWidth = shape.width;
                 ctx.lineCap = "round";
                 switch (shape.type) {

@@ -5,14 +5,18 @@
             <div id="word">Ord att rita: <strong>{{ word }}</strong></div>
             <sg-countdown :seconds="seconds"></sg-countdown>
         </header>
-        <sg-board ref="board" :draw-type="drawType" :draw-width="drawWidth"></sg-board>
+        <sg-board ref="board" :draw-type="drawType" :draw-width="drawWidth" :draw-color="drawColor"></sg-board>
         <div>
-            <sg-button text="Pensel" :selected="drawType == 'path'" @click.native="drawType = 'path'"></sg-button>
-            <sg-button text="Linje" :selected="drawType == 'line'" @click.native="drawType = 'line'"></sg-button>
-            <sg-button text="Rektangel" :selected="drawType == 'rect'" @click.native="drawType = 'rect'"></sg-button>
-            <sg-button text="Fylld rektangel" :selected="drawType == 'frect'" @click.native="drawType = 'frect'"></sg-button>
-            <sg-button text="Oval" :selected="drawType == 'oval'" @click.native="drawType = 'oval'"></sg-button>
-            <sg-button text="Fylld oval" :selected="drawType == 'foval'" @click.native="drawType = 'foval'"></sg-button>
+            <!--<sg-button icon="path.png" :selected="drawType == 'path'" @click.native="drawType = 'path'"></sg-button>
+            <sg-button icon="line.png" :selected="drawType == 'line'" @click.native="drawType = 'line'"></sg-button>
+            <sg-button icon="rect.png" :selected="drawType == 'rect'" @click.native="drawType = 'rect'"></sg-button>
+            <sg-button icon="frect.png" :selected="drawType == 'frect'" @click.native="drawType = 'frect'"></sg-button>
+            <sg-button icon="oval.png" :selected="drawType == 'oval'" @click.native="drawType = 'oval'"></sg-button>
+            <sg-button icon="foval.png" :selected="drawType == 'foval'" @click.native="drawType = 'foval'"></sg-button>-->
+            <sg-button :icon="`${tool}.png`" :selected="drawType == tool" @click.native="drawType = tool" v-for="tool of tools" :key="tool"></sg-button>
+        </div>
+        <div>
+            <sg-button :bg-color="color" :selected="drawColor == color" @click.native="drawColor = color" v-for="color of colors" :key="color"></sg-button>
         </div>
         <div>
             Linjebredd: <input type="range" min="1" max="10" v-model="drawWidth">
@@ -46,9 +50,28 @@
             return {
                 drawType: "path",
                 drawWidth: 2,
+                drawColor: "#000",
                 drawer: null,
                 word: null,
-                seconds: null
+                seconds: null,
+                tools: ["path", "line", "rect", "frect", "oval", "foval"],
+                colors: [
+                    "#000",
+                    "#888",
+                    "#fff",
+                    "#f00",
+                    "#0f0",
+                    "#00f",
+                    "#800",
+                    "#080",
+                    "#008",
+                    "#ff0",
+                    "#0ff",
+                    "#f0f",
+                    "#880",
+                    "#088",
+                    "#808"
+                ]
             };
         },
         
