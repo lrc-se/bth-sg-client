@@ -1,15 +1,12 @@
 <template>
     <div id="sg-player-list">
-        <div id="sg-player-list-head">
-            <span>Spelare</span>
-            <span>Poäng</span>
-        </div>
-        <div id="sg-players">
-            <div class="sg-player" v-for="player of players">
-                <span>{{ player.nick }}</span>
-                <span>{{ player.points }}</span>
-            </div>
-        </div>
+        <table>
+            <tr><th>Spelare</th><th>Poäng</th></tr>
+            <tr class="sg-player" v-for="player of players">
+                <td>{{ player.nick }}</td>
+                <td>{{ player.points }}</td>
+            </tr>
+        </table>
     </div>
 </template>
 
@@ -34,25 +31,24 @@
     };
 </script>
 
-<style>
-    #sg-player-list-head {
-        font-weight: 700;
-    }
-    
-    #sg-player-list-head,
-    .sg-player {
-        display: flex;
-    }
-    
-    #sg-player-list-head > span:last-child,
-    .sg-player > span:last-child {
-        margin-left: auto;
-        text-align: right;
-    }
-
-    #sg-players {
+<style scoped>
+    #sg-player-list {
         height: 100px;
-        border: 1px solid #000;
-        overflow-y: scroll;
+        overflow-y: auto;
+    }
+    
+    table {
+        width: 100%;
+        border-spacing: 0;
+    }
+    
+    th {
+        font-weight: 700;
+        text-align: left;
+    }
+    
+    th:last-child,
+    td:last-child {
+        text-align: right;
     }
 </style>
