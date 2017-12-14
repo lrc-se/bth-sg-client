@@ -27,15 +27,18 @@
     }
     
     .sg-chat-msg.server {
+        padding-left: .25em;
         font-weight: 700;
     }
     
     .sg-chat-msg.correct {
+        padding-left: .25em;
         color: #080;
         font-weight: 700;
     }
     
-    .sg-chat-msg.wrong {
+    .sg-chat-msg.timeout {
+        padding-left: .25em;
         color: #b00;
         font-weight: 700;
     }

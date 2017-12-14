@@ -1,8 +1,8 @@
 <template>
     <div id="app">
         <header>
-            <div id="drawer">Nu ritar: <strong>{{ drawer || "--" }}</strong></div>
-            <div id="word">Ord att rita: <strong>{{ word || "--" }}</strong></div>
+            <div id="drawer">Nu ritar: <strong>{{ drawer || "–" }}</strong></div>
+            <div id="word">Ord att rita: <strong>{{ word }}</strong></div>
             <sg-countdown :seconds="seconds"></sg-countdown>
         </header>
         <sg-board ref="board" :draw-type="drawType" :draw-width="drawWidth"></sg-board>
@@ -22,6 +22,7 @@
             <sg-button text="Rensa" @click.native="clearBoard"></sg-button>
         </div>
         <div>
+            Meddelanden
             <sg-chat></sg-chat>
         </div>
         <div>
@@ -63,15 +64,21 @@
             Client.$on("drawer", (name) => {
                 this.drawer = name;
             });
+            
             Client.$on("word", (word) => {
                 this.word = word.toUpperCase();
                 this.drawer = Client.nick;
             });
+            
             Client.$on("countdown", (sec) => {
                 this.seconds = sec;
             });
             
-            Client.nick = "test";
+            // temp
+            Client.nick = "John Doe";
+            setTimeout(() => {
+                Client.$emit("word", "foobar");
+            }, 2000);
         },
         
         methods: {
@@ -80,7 +87,9 @@
             },
             
             clearBoard() {
-                Client.emitAndSend("clear");
+                if (confirm("Är du säker på att du vill rensa ritytan?")) {
+                    Client.emitAndSend("clear");
+                }
             }
         }
     };

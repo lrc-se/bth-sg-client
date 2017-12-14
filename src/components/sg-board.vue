@@ -1,5 +1,5 @@
 <template>
-    <div id="sg-board" @mousedown="startShape" @mousemove="updateShape" @mouseup="endShape">
+    <div id="sg-board" :class="status" @mousedown="startShape" @mousemove="updateShape" @mouseup="endShape">
         <sg-canvas ref="bgCanvas"></sg-canvas>
         <sg-canvas ref="drawCanvas"></sg-canvas>
     </div>
@@ -14,16 +14,15 @@
         
         props: [
             "draw-type",
-            "draw-width"
+            "draw-width",
+            "draw-color"
         ],
         
         data() {
             return {
-                curShape: {
-                    type: "path",
-                    color: "#000"
-                },
-                isDrawing: false
+                curShape: {},
+                isDragging: false,
+                status: "inactive"
             };
         },
         
@@ -33,23 +32,42 @@
         
         created() {
             Client.$on("clear", this.clear);
+            
             Client.$on("undo", this.undo);
+            
+            Client.$on("word", () => {
+                this.status = "drawing";
+            });
+            
+            Client.$on("correct", () => {
+                this.status = "correct";
+            });
+            
+            Client.$on("timeout", () => {
+                this.status = "timeout";
+            });
+            
+            Client.$on("drawer", this.reset);
+            Client.$on("pause", this.reset);
         },
         
         methods: {
             startShape(e) {
-                if (this.isDrawing) {
+                if (this.status != "drawing" || this.isDragging) {
                     return;
                 }
                 
-                this.curShape.points = [[e.offsetX, e.offsetY]];
-                this.curShape.type = this.drawType;
-                this.curShape.width = this.drawWidth;
-                this.isDrawing = true;
+                this.curShape = {
+                    type: this.drawType,
+                    width: this.drawWidth,
+                    color: this.drawColor,
+                    points: [[e.offsetX, e.offsetY]]
+                };
+                this.isDragging = true;
             },
             
             updateShape(e) {
-                if (!this.isDrawing) {
+                if (this.status != "drawing" || !this.isDragging) {
                     return;
                 }
                 
@@ -63,11 +81,11 @@
             },
             
             endShape(e) {
-                if (!this.isDrawing) {
+                if (this.status != "drawing" || !this.isDragging) {
                     return;
                 }
                 
-                this.isDrawing = false;
+                this.isDragging = false;
                 if (this.curShape.points.length == 1) {
                     this.curShape.points.push([e.offsetX, e.offsetY]);
                 }
@@ -80,11 +98,22 @@
             },
             
             clear() {
-                this.$refs.bgCanvas.clear(true);
+                if (this.status == "drawing") {
+                    this.$refs.bgCanvas.clear(true);
+                }
             },
             
             undo() {
-                this.$refs.bgCanvas.undo();
+                if (this.status == "drawing") {
+                    this.$refs.bgCanvas.undo();
+                }
+            },
+            
+            reset() {
+                this.status = "inactive";
+                this.isDragging = false;
+                this.$refs.drawCanvas.clear(true);
+                this.$refs.bgCanvas.clear(true);
             }
         }
     };
@@ -98,6 +127,19 @@
         margin: 2px;
         outline: 2px solid #000;
         background-color: #fff;
+    }
+    
+    #sg-board.drawing {
+        outline-color: #00f;
+        cursor: crosshair;
+    }
+    
+    #sg-board.correct {
+        outline-color: #080;
+    }
+    
+    #sg-board.timeout {
+        outline-color: #a00;
     }
     
     .sg-canvas {

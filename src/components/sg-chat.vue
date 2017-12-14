@@ -28,15 +28,16 @@
             Client.$on("msg", this.addMessage);
             
             Client.$on("correct", (data) => {
+                let word = data.word.toUpperCase();
                 this.addServerMessage(
-                    `* ${data.nick} gissade rätt! Det hemliga ordet var "${data.word}".`,
+                    `* ${data.nick} gissade rätt! Det hemliga ordet var "${word}".`,
                     "correct"
                 );
             });
             
             Client.$on("timeout", (word) => {
                 this.addServerMessage(
-                    `* Ingen lyckades gissa rätt! Det hemliga ordet var "${word}".`,
+                    `* Ingen lyckades gissa rätt! Det hemliga ordet var "${word.toUpperCase()}".`,
                     "timeout"
                 );
             });
@@ -56,7 +57,13 @@
             });
             
             Client.$on("word", (word) => {
-                this.addServerMessage(`* Det är din tur att rita! Det hemliga ordet är "${word}".`);
+                this.addServerMessage(
+                    `* Det är din tur att rita! Det hemliga ordet är "${word.toUpperCase()}".`
+                );
+            });
+            
+            Client.$on("pause", (word) => {
+                this.addServerMessage("* Spelet är pausat i väntan på fler deltagare.");
             });
         },
         

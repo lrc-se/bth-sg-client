@@ -1,5 +1,5 @@
 <template>
-    <div>{{ min }}:{{ sec }}</div>
+    <div>Tid kvar: <strong>{{ min }}:{{ sec }}</strong></div>
 </template>
 
 <script>

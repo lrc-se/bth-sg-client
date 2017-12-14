@@ -1,6 +1,6 @@
 <template>
     <div id="sg-chat-form">
-        Meddelande: <input type="text" v-model="message" @keyup.enter.prevent="sendMessage">
+        <input type="text" v-model="message" @keyup.enter.prevent="sendMessage">
         <input type="button" value="Skicka" @click="sendMessage">
     </div>
 </template>
