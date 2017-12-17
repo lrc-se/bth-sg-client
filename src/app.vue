@@ -65,7 +65,8 @@
                     "#880",
                     "#088",
                     "#808"
-                ]
+                ],
+                timer: null
             };
         },
         
@@ -89,7 +90,12 @@
             
             Client.$on("countdown", (sec) => {
                 this.seconds = sec;
+                this.timer = setInterval(this.tick, 1000);
             });
+            
+            Client.$on("correct", this.pause);
+            Client.$on("timeout", this.pause);
+            Client.$on("pause", this.pause);
             
             // temp
             Client.nick = "John Doe" + Math.floor(Math.random() * 100);
@@ -111,6 +117,19 @@
                 if (confirm("Är du säker på att du vill rensa ritytan?")) {
                     Client.emitAndSend("clear");
                 }
+            },
+            
+            tick() {
+                if (this.seconds > 0) {
+                    this.seconds -= 1;
+                } else {
+                    this.pause();
+                }
+            },
+            
+            pause() {
+                clearInterval(this.timer);
+                this.seconds = null;
             }
         }
     };
