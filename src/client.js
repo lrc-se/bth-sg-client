@@ -53,6 +53,7 @@ function startHandshake() {
  */
 function handleDisconnection(e) {
     Client.status = "offline";
+    Client.$emit("offline");
     conn = null;
 }
 
@@ -109,6 +110,7 @@ function handleLogin(data) {
     switch (data.cmd) {
         case "CMONIN":
             Client.status = "online";
+            Client.$emit("online");
             break;
         case "DOPPELGANGER":
             Client.disconnect("Smeknamnet är upptaget.");
@@ -152,7 +154,8 @@ function sendCommand(cmd, data) {
 export default new Vue({
     data: {
         nick: "",
-        status: "offline"
+        status: "offline",
+        isDrawing: false
     },
     
     created() {

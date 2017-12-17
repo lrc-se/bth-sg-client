@@ -31,11 +31,17 @@
         },
         
         created() {
+            Client.$on("draw", (shape) => {
+                this.$refs.bgCanvas.addShape(shape, true);
+            });
+            
             Client.$on("clear", this.clear);
             
             Client.$on("undo", this.undo);
             
             Client.$on("word", () => {
+                this.$refs.drawCanvas.clear(true);
+                this.$refs.bgCanvas.clear(true);
                 this.status = "drawing";
             });
             
@@ -98,15 +104,11 @@
             },
             
             clear() {
-                if (this.status == "drawing") {
-                    this.$refs.bgCanvas.clear(true);
-                }
+                this.$refs.bgCanvas.clear(true);
             },
             
             undo() {
-                if (this.status == "drawing") {
-                    this.$refs.bgCanvas.undo();
-                }
+                this.$refs.bgCanvas.undo();
             },
             
             reset() {

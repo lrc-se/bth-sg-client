@@ -7,12 +7,6 @@
         </header>
         <sg-board ref="board" :draw-type="drawType" :draw-width="drawWidth" :draw-color="drawColor"></sg-board>
         <div>
-            <!--<sg-button icon="path.png" :selected="drawType == 'path'" @click.native="drawType = 'path'"></sg-button>
-            <sg-button icon="line.png" :selected="drawType == 'line'" @click.native="drawType = 'line'"></sg-button>
-            <sg-button icon="rect.png" :selected="drawType == 'rect'" @click.native="drawType = 'rect'"></sg-button>
-            <sg-button icon="frect.png" :selected="drawType == 'frect'" @click.native="drawType = 'frect'"></sg-button>
-            <sg-button icon="oval.png" :selected="drawType == 'oval'" @click.native="drawType = 'oval'"></sg-button>
-            <sg-button icon="foval.png" :selected="drawType == 'foval'" @click.native="drawType = 'foval'"></sg-button>-->
             <sg-button :icon="`${tool}.png`" :selected="drawType == tool" @click.native="drawType = tool" v-for="tool of tools" :key="tool"></sg-button>
         </div>
         <div>
@@ -98,18 +92,22 @@
             });
             
             // temp
-            Client.nick = "John Doe";
-            setTimeout(() => {
-                Client.$emit("word", "foobar");
-            }, 2000);
+            Client.nick = "John Doe" + Math.floor(Math.random() * 100);
+            Client.connect("ws://localhost:1701");
         },
         
         methods: {
             undo() {
+                if (this.drawer !== Client.nick) {
+                    return;
+                }
                 Client.emitAndSend("undo");
             },
             
             clearBoard() {
+                if (this.drawer !== Client.nick) {
+                    return;
+                }
                 if (confirm("Är du säker på att du vill rensa ritytan?")) {
                     Client.emitAndSend("clear");
                 }

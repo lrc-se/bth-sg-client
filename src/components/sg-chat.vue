@@ -27,6 +27,10 @@
         created() {
             Client.$on("msg", this.addMessage);
             
+            Client.$on("online", () => {
+                this.addNotice("* Välkommen till spelet!");
+            });
+            
             Client.$on("correct", (data) => {
                 let word = data.word.toUpperCase();
                 this.addNotice(
