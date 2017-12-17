@@ -16,8 +16,8 @@
             Linjebredd: <input type="range" min="1" max="10" v-model="drawWidth">
         </div>
         <div>
-            <sg-button text="Ångra" @click.native="undo"></sg-button>
-            <sg-button text="Rensa" @click.native="clearBoard"></sg-button>
+            <sg-button text="Ångra" :disabled="!word" @click.native="undo"></sg-button>
+            <sg-button text="Rensa" :disabled="!word" @click.native="clearBoard"></sg-button>
         </div>
         <div>
             Meddelanden
@@ -80,6 +80,7 @@
         
         created() {
             Client.$on("drawer", (name) => {
+                this.word = null;
                 this.drawer = name;
             });
             
@@ -104,14 +105,14 @@
         
         methods: {
             undo() {
-                if (this.drawer !== Client.nick) {
+                if (!this.word) {
                     return;
                 }
                 Client.emitAndSend("undo");
             },
             
             clearBoard() {
-                if (this.drawer !== Client.nick) {
+                if (!this.word) {
                     return;
                 }
                 if (confirm("Är du säker på att du vill rensa ritytan?")) {
@@ -130,6 +131,7 @@
             pause() {
                 clearInterval(this.timer);
                 this.seconds = null;
+                this.word = null;
             }
         }
     };
