@@ -29,41 +29,41 @@
             
             Client.$on("correct", (data) => {
                 let word = data.word.toUpperCase();
-                this.addServerMessage(
+                this.addNotice(
                     `* ${data.nick} gissade rätt! Det hemliga ordet var "${word}".`,
                     "correct"
                 );
             });
             
             Client.$on("timeout", (word) => {
-                this.addServerMessage(
+                this.addNotice(
                     `* Ingen lyckades gissa rätt! Det hemliga ordet var "${word.toUpperCase()}".`,
                     "timeout"
                 );
             });
             
             Client.$on("join", (nick) => {
-                this.addServerMessage(`* ${nick} har anslutit sig till spelet.`);
+                this.addNotice(`* ${nick} har anslutit sig till spelet.`);
             });
 
             Client.$on("part", (nick) => {
-                this.addServerMessage(`* ${nick} har lämnat spelet.`);
+                this.addNotice(`* ${nick} har lämnat spelet.`);
             });
             
             Client.$on("drawer", (nick) => {
-                this.addServerMessage(
+                this.addNotice(
                     "* Det är " + (nick.endsWith("s") ? nick : nick + "s") + " tur att rita."
                 );
             });
             
             Client.$on("word", (word) => {
-                this.addServerMessage(
+                this.addNotice(
                     `* Det är din tur att rita! Det hemliga ordet är "${word.toUpperCase()}".`
                 );
             });
             
             Client.$on("pause", (word) => {
-                this.addServerMessage("* Spelet är pausat i väntan på fler deltagare.");
+                this.addNotice("* Spelet är pausat i väntan på fler deltagare.");
             });
         },
         
@@ -72,9 +72,9 @@
                 this.messages.push(message);
             },
             
-            addServerMessage(text, type) {
+            addNotice(text, type) {
                 this.addMessage({
-                    type: type || "server",
+                    type: "notice" + (type ? ` ${type}` : ""),
                     nick: null,
                     text: text
                 });
