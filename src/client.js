@@ -52,6 +52,9 @@ function startHandshake() {
  * @param   {object}    e   Event object.
  */
 function handleDisconnection(e) {
+    if (Client.status == "online") {
+        alert("Kontakten med servern har förlorats och spelet stängs därför ner.");
+    }
     Client.status = "offline";
     Client.$emit("offline");
     conn = null;
@@ -62,7 +65,9 @@ function handleDisconnection(e) {
  * Handles connection errors.
  */
 function handleError() {
-    alert("Kunde inte ansluta till servern.");
+    if (Client.status == "connect") {
+        alert("Kunde inte ansluta till servern.");
+    }
 }
 
 
@@ -176,12 +181,12 @@ export default new Vue({
                 url = "ws://" + url;
             }
             
+            this.status = "connect";
             conn = new WebSocket(url);
             conn.onerror = handleError;
             conn.onopen = startHandshake;
             conn.onclose = handleDisconnection;
             conn.onmessage = handleMessage;
-            this.status = "connect";
         },
         
         disconnect(msg) {

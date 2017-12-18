@@ -69,6 +69,10 @@
             Client.$on("pause", (word) => {
                 this.addNotice("* Spelet är pausat i väntan på fler deltagare.");
             });
+            
+            Client.$on("offline", () => {
+                this.messages = [];
+            });
         },
         
         methods: {
