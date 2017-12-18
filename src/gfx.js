@@ -1,10 +1,17 @@
 /**
- * Client instance.
+ * Canvas drawing functions.
  */
 
 "use strict";
 
 export default {
+    /**
+     * Draws a (round) pixel on the canvas.
+     *
+     * @param   {CanvasRenderingContext2D}  ctx     Canvas context.
+     * @param   {Array}                     point   Coordinate vector.
+     * @param   {number}                    size    Pixel size.
+     */
     drawPixel(ctx, point, size) {
         ctx.lineJoin = "round";
         ctx.beginPath();
@@ -13,6 +20,12 @@ export default {
     },
     
     
+    /**
+     * Draws a path on the canvas.
+     *
+     * @param   {CanvasRenderingContext2D}  ctx     Canvas context.
+     * @param   {Array}                     points  Array of coordinate vectors.
+     */
     drawPath(ctx, points) {
         ctx.lineJoin = "round";
         ctx.beginPath();
@@ -24,6 +37,14 @@ export default {
     },
     
     
+    /**
+     * Draws a rectangle on the canvas.
+     *
+     * @param   {CanvasRenderingContext2D}  ctx     Canvas context.
+     * @param   {Array}                     fromPos Start coordinate vector.
+     * @param   {Array}                     toPos   End coordinate vector.
+     * @param   {boolean}                   [fill]  Whether to fill the rectangle.
+     */
     drawRect(ctx, fromPos, toPos, fill) {
         ctx.lineJoin = "miter";
         let method;
@@ -36,6 +57,14 @@ export default {
     },
     
     
+    /**
+     * Draws an ellipse on the canvas.
+     *
+     * @param   {CanvasRenderingContext2D}  ctx     Canvas context.
+     * @param   {Array}                     fromPos Start coordinate vector.
+     * @param   {Array}                     toPos   End coordinate vector.
+     * @param   {boolean}                   [fill]  Whether to fill the ellipse.
+     */
     drawEllipse(ctx, fromPos, toPos, fill) {
         ctx.lineJoin = "round";
         let width = toPos[0] - fromPos[0];

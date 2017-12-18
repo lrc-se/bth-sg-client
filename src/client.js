@@ -176,6 +176,11 @@ export default new Vue({
     },
     
     methods: {
+        /**
+         * Connects to an S&G server.
+         *
+         * @param   {String}    url     Server URL.
+         */
         connect(url) {
             if (!url.startsWith("ws://")) {
                 url = "ws://" + url;
@@ -189,6 +194,12 @@ export default new Vue({
             conn.onmessage = handleMessage;
         },
         
+        
+        /**
+         * Disconnects from the S&G server.
+         *
+         * @param   {String}    [msg]   Message to display to user, if any.
+         */
         disconnect(msg) {
             sendCommand("SEEYA");
             this.status = "offline";
@@ -200,12 +211,26 @@ export default new Vue({
             }
         },
         
+        
+        /**
+         * Sends a protocol command to server.
+         *
+         * @param   {String}    evnt    Name of the event to send command for.
+         * @param   {object}    [data]  Data payload, if any.
+         */
         send(evnt, data) {
             if (eventCommands[evnt]) {
                 sendCommand(eventCommands[evnt], data);
             }
         },
         
+        
+        /**
+         * Emits an internal event and sends the corresponding protocol command to server.
+         *
+         * @param   {String}    evnt    Name of the event.
+         * @param   {object}    [data]  Data payload, if any.
+         */
         emitAndSend(evnt, data) {
             this.$emit(evnt, data);
             this.send(evnt, data);
