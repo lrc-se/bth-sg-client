@@ -47,10 +47,12 @@
             
             Client.$on("correct", () => {
                 this.status = "correct";
+                this.isDragging = false;
             });
             
             Client.$on("timeout", () => {
                 this.status = "timeout";
+                this.isDragging = false;
             });
             
             Client.$on("drawer", this.reset);
