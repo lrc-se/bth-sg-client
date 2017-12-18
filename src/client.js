@@ -59,6 +59,14 @@ function handleDisconnection(e) {
 
 
 /**
+ * Handles connection errors.
+ */
+function handleError() {
+    alert("Kunde inte ansluta till servern.");
+}
+
+
+/**
  * Handles incoming messages.
  *
  * @param   {object}    e   Event object.
@@ -168,20 +176,12 @@ export default new Vue({
                 url = "ws://" + url;
             }
             
-            try {
-                conn = new WebSocket(url);
-            } catch (ex) {
-                alert(
-                    "Kunde inte öppna anslutningen." +
-                    (ex.message ? "Felmeddelande: " + ex.message : "")
-                );
-                return;
-            }
-            
-            this.status = "connect";
+            conn = new WebSocket(url);
+            conn.onerror = handleError;
             conn.onopen = startHandshake;
             conn.onclose = handleDisconnection;
             conn.onmessage = handleMessage;
+            this.status = "connect";
         },
         
         disconnect(msg) {
