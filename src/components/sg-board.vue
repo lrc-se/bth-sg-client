@@ -57,6 +57,7 @@
             
             Client.$on("drawer", this.reset);
             Client.$on("pause", this.reset);
+            Client.$on("offline", this.reset);
         },
         
         methods: {

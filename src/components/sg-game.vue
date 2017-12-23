@@ -95,9 +95,10 @@
                 this.timer = setInterval(this.tick, 1000);
             });
             
-            Client.$on("correct", this.pause);
-            Client.$on("timeout", this.pause);
-            Client.$on("pause", this.pause);
+            Client.$on("correct", this.reset);
+            Client.$on("timeout", this.reset);
+            Client.$on("pause", this.reset);
+            Client.$on("offline", this.reset);
         },
         
         methods: {
@@ -121,11 +122,11 @@
                 if (this.seconds > 0) {
                     this.seconds -= 1;
                 } else {
-                    this.pause();
+                    this.reset();
                 }
             },
             
-            pause() {
+            reset() {
                 clearInterval(this.timer);
                 this.seconds = null;
                 this.word = null;

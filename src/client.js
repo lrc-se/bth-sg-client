@@ -203,6 +203,7 @@ export default new Vue({
         disconnect(msg) {
             sendCommand("SEEYA");
             this.status = "offline";
+            this.$emit("offline");
             conn.close();
             conn = null;
             
