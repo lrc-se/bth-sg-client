@@ -13,6 +13,8 @@
         </form>
         <h4>Välj spel</h4>
         <sg-game-list @selected="selectGame"></sg-game-list>
+        <h4>Tio-i-topp</h4>
+        <sg-score-list></sg-score-list>
     </div>
 </template>
 
@@ -20,6 +22,7 @@
     import Client from "../client";
     import SgButton from "./sg-button";
     import SgGameList from "./sg-game-list";
+    import SgScoreList from "./sg-score-list";
     
     export default {
         name: "sg-login",
@@ -34,7 +37,8 @@
         
         components: {
             "sg-button": SgButton,
-            "sg-game-list": SgGameList
+            "sg-game-list": SgGameList,
+            "sg-score-list": SgScoreList
         },
         
         created() {
