@@ -99,6 +99,12 @@
             Client.$on("timeout", this.reset);
             Client.$on("pause", this.reset);
             Client.$on("offline", this.reset);
+            
+            Client.$on("part", (nick) => {
+                if (this.drawer === nick) {
+                    this.reset();
+                }
+            });
         },
         
         methods: {
