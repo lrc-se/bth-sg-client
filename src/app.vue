@@ -1,12 +1,14 @@
 <template>
     <div id="app">
-        <sg-login v-show="status != 'online'"></sg-login>
-        <sg-game v-show="status == 'online'"></sg-game>
+        <sg-connect v-show="panel == 'connect'"></sg-connect>
+        <sg-login v-show="panel == 'login'"></sg-login>
+        <sg-game v-show="panel == 'game'"></sg-game>
     </div>
 </template>
 
 <script>
     import Client from "./client";
+    import SgConnect from "./components/sg-connect";
     import SgLogin from "./components/sg-login";
     import SgGame from "./components/sg-game";
     
@@ -15,27 +17,35 @@
         
         data() {
             return {
-                status: "offline"
+                panel: "connect"
             };
         },
         
         components: {
+            "sg-connect": SgConnect,
             "sg-login": SgLogin,
             "sg-game": SgGame
         },
         
         created() {
-            Client.$on("offline", () => {
-                this.status = "offline";
-            });
-            
-            Client.$on("online", () => {
-                this.status = "online";
-            });
+            Client.$on("restart", this.showConnect);
+            Client.$on("games", this.showLogin);
+            Client.$on("offline", this.showLogin);
+            Client.$on("online", this.showGame);
         },
         
         methods: {
+            showConnect() {
+                this.panel = "connect";
+            },
             
+            showLogin() {
+                this.panel = "login";
+            },
+            
+            showGame() {
+                this.panel = "game";
+            }
         }
     };
 </script>

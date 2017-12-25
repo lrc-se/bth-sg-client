@@ -3,24 +3,23 @@
         <header>
             <h1>Skissa & Gissa</h1>
         </header>
-        <h4>Anslut till spel</h4>
         <form @submit.prevent="connect">
             <div>
                 <label for="nick">Smeknamn</label>
                 <input id="nick" type="text" v-model="nick">
             </div>
-            <div>
-                <label for="server">Server</label>
-                <input id="server" type="text" v-model="server">
-            </div>
-            <sg-button :text="(status == 'connecting' ? 'Ansluter...' : 'Anslut')" :disabled="status == 'connecting'"></sg-button>
+            <sg-button :text="(status == 'connecting' ? 'Ansluter...' : 'Anslut')" :disabled="status == 'connecting' || !nick.trim() || !selectedGame"></sg-button>
+            <sg-button text="Byt server" @click.native.prevent="restart"></sg-button>
         </form>
+        <h4>Välj spel</h4>
+        <sg-game-list @selected="selectGame"></sg-game-list>
     </div>
 </template>
 
 <script>
     import Client from "../client";
     import SgButton from "./sg-button";
+    import SgGameList from "./sg-game-list";
     
     export default {
         name: "sg-login",
@@ -29,12 +28,13 @@
             return {
                 status: "idle",
                 nick: "",
-                server: document.location.host
+                selectedGame: null
             };
         },
         
         components: {
-            "sg-button": SgButton
+            "sg-button": SgButton,
+            "sg-game-list": SgGameList
         },
         
         created() {
@@ -43,23 +43,23 @@
         },
         
         methods: {
+            selectGame(game) {
+                this.selectedGame = game;
+            },
+            
             connect() {
-                if (!this.nick.trim()) {
-                    alert("Var god ange ett smeknamn.");
-                    return;
-                }
-                if (!this.server.trim()) {
-                    alert("Var god ange en serveradress.");
-                    return;
-                }
-                
                 this.status = "connecting";
                 Client.nick = this.nick.trim();
-                Client.connect(this.server.trim().replace(/^https?:\/\//, ""));
+                Client.connect(this.selectedGame.port);
             },
             
             reset() {
                 this.status = "idle";
+            },
+            
+            restart() {
+                this.reset();
+                Client.$emit("restart");
             }
         }
     };

@@ -167,6 +167,8 @@ function sendCommand(cmd, data) {
 export default new Vue({
     data: {
         nick: "",
+        baseUrl: "",
+        basePort: 0,
         status: "offline",
         isDrawing: false
     },
@@ -177,16 +179,13 @@ export default new Vue({
     
     methods: {
         /**
-         * Connects to an S&G server.
+         * Connects to an S&G game server using internal base URL.
          *
-         * @param   {String}    url     Server URL.
+         * @param   {number}    port    Game server port.
          */
-        connect(url) {
-            if (!url.startsWith("ws://")) {
-                url = "ws://" + url;
-            }
-            
+        connect(port) {
             this.status = "connect";
+            let url = "ws://" + this.baseUrl.replace(/^https?:\/\//, "") + ":" + port;
             conn = new WebSocket(url);
             conn.onerror = handleError;
             conn.onopen = startHandshake;
