@@ -29,7 +29,7 @@
         
         created() {
             Client.$on("restart", this.showConnect);
-            Client.$on("games", this.showLogin);
+            Client.$on("login", this.showLogin);
             Client.$on("offline", this.showLogin);
             Client.$on("online", this.showGame);
         },
@@ -51,5 +51,7 @@
 </script>
 
 <style>
-
+    #app {
+        width: 804px;
+    }
 </style>

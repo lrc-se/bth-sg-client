@@ -35,9 +35,7 @@
         },
         
         created() {
-            Client.$on("login", () => {
-                this.getGames(true);
-            });
+            Client.$on("login", this.update);
             Client.$on("offline", this.update);
         },
         
@@ -51,25 +49,16 @@
             },
             
             update() {
-                this.getGames();
-            },
-            
-            getGames(first) {
                 let vm = this;
                 vm.status = "updating";
                 axios.get(`${Client.baseUrl}:${Client.basePort}/api/games`).then(function(res) {
                     if (!res.data || !Array.isArray(res.data.data)) {
                         vm.games = [];
                         vm.error = "Servern är inte en giltig Skissa & Gissa-server.";
-                        if (first) {
-                            alert(vm.error);
-                            Client.$emit("restart");
-                        }
                     } else {
                         vm.games = res.data.data;
                         vm.error = null;
                         vm.select(-1);
-                        Client.$emit("games");
                     }
                     vm.status = "idle";
                 }).catch(function(err) {
@@ -77,10 +66,6 @@
                         vm.error = "Servern är inte en giltig Skissa & Gissa-server.";
                     } else {
                         vm.error = "Kunde inte ansluta till servern.";
-                    }
-                    if (first) {
-                        alert(vm.error);
-                        Client.$emit("restart");
                     }
                     vm.status = "idle";
                 });

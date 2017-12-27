@@ -2,6 +2,7 @@
     <div id="sg-login">
         <header>
             <h1>Skissa & Gissa</h1>
+            <h2>{{ serverName }}</h2>
         </header>
         <form @submit.prevent="connect">
             <div>
@@ -30,6 +31,7 @@
         data() {
             return {
                 status: "idle",
+                serverName: "",
                 nick: "",
                 selectedGame: null
             };
@@ -42,6 +44,9 @@
         },
         
         created() {
+            Client.$on("login", (name) => {
+                this.serverName = name;
+            });
             Client.$on("online", this.reset);
             Client.$on("offline", this.reset);
         },
@@ -70,13 +75,5 @@
 </script>
 
 <style>
-    #app {
-        width: 804px;
-    }
-    
-    header {
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-    }
+
 </style>
