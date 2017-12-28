@@ -1,8 +1,8 @@
 <template>
     <button class="sg-button" :class="{ selected }" :style="{ backgroundColor: bgColor }">
         <img :src="require(`../img/${icon}`)" :alt="text" v-if="icon">
-        <span v-else="text">{{ text }}</span>
-        <span v-if="!icon && !text">&nbsp;</span>
+        <span v-else-if="text">{{ text }}</span>
+        <span v-else>&nbsp;</span>
     </button>
 </template>
 
