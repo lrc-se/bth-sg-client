@@ -1,0 +1,14 @@
+{
+    "all": true,
+    "exclude": [
+        "config",
+        "src/main.js",
+        "build",
+        "test"
+    ],
+    "extension": [
+        ".vue"
+    ],
+    "report-dir": "./build/coverage",
+    "temp-directory": "./build/.nyc_output"
+}
