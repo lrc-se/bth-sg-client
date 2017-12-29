@@ -4,11 +4,9 @@
 
 "use strict";
 
-const setup = require("../setup");
-
 const vtu = require("vue-test-utils");
 const tap = require("tap");
-const SgButton = setup.loadComponent("sg-button");
+const SgButton = require("../../../src/components/sg-button").default;
 
 
 tap.test("Test text button", function(t) {
