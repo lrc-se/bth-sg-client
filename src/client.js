@@ -48,10 +48,8 @@ function startHandshake() {
 
 /**
  * Handles disconnection event.
- *
- * @param   {object}    e   Event object.
  */
-function handleDisconnection(e) {
+function handleDisconnection() {
     if (Client.status == "online") {
         alert("Kontakten med servern har förlorats och spelet stängs därför ner.");
     }
@@ -95,6 +93,8 @@ function handleMessage(e) {
         case "online":
             handleCommand(data);
             break;
+        default:
+            // NOOP
     }
 }
 

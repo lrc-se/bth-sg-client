@@ -66,9 +66,8 @@ export default {
      * @param   {boolean}                   [fill]  Whether to fill the ellipse.
      */
     drawEllipse(ctx, fromPos, toPos, fill) {
-        ctx.lineJoin = "round";
         let width = toPos[0] - fromPos[0];
-        let height = toPos[1] - fromPos[1];
+        ctx.lineJoin = "round";
         ctx.beginPath();
         ctx.moveTo(fromPos[0] + width / 2, fromPos[1]);
         ctx.bezierCurveTo(
