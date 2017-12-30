@@ -1,0 +1,21 @@
+checks:
+    javascript: true
+    
+filter:
+    paths: ["src/"]
+
+build:
+    environment:
+        node: v6.2.0
+        
+    dependencies:
+        override:
+            - npm install
+            
+    tests:
+        override:
+            -
+                command: "npm run unit-clover"
+                coverage:
+                    file: "build/coverage/clover.xml"
+                    format: "clover"
