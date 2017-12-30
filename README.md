@@ -1,6 +1,11 @@
 Skissa & Gissa (client)
 =======================
 
+[![Travis CI Build Status](https://travis-ci.org/lrc-se/bth-sg-client.svg?branch=master)](https://travis-ci.org/lrc-se/bth-sg-client)
+[![Scrutinizer Build Status](https://scrutinizer-ci.com/g/lrc-se/bth-sg-client/badges/build.png?b=master)](https://scrutinizer-ci.com/g/lrc-se/bth-sg-client/build-status/master)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/lrc-se/bth-sg-client/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/lrc-se/bth-sg-client/?branch=master)
+[![Scrutinizer Code Coverage](https://scrutinizer-ci.com/g/lrc-se/bth-sg-client/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/lrc-se/bth-sg-client/?branch=master)
+
 
 This is the client part of a re-implementation of the Skissa & Gissa game. Or, at least it is meant to evolve into that at some point...
 
