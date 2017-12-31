@@ -21,6 +21,7 @@
 
 <style>
     .sg-button {
+        margin: 0 .5em .5em 0;
         padding: .25em 1em;
         border: 3px double #33312e;
         border-radius: 2px;

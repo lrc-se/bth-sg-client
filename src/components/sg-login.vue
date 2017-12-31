@@ -6,11 +6,11 @@
         </header>
         <form @submit.prevent="connect">
             <div>
-                <label for="nick">Smeknamn</label>
-                <input id="nick" type="text" v-model="nick">
+                <label for="nick">Smeknamn:</label>
+                <input id="nick" type="text" required autofocus v-model="nick">
+                <sg-button :text="(status == 'connecting' ? 'Ansluter...' : 'Anslut')" :disabled="status == 'connecting' || !nick.trim() || !selectedGame"></sg-button>
+                <sg-button text="Byt server" @click.native.prevent="restart"></sg-button>
             </div>
-            <sg-button :text="(status == 'connecting' ? 'Ansluter...' : 'Anslut')" :disabled="status == 'connecting' || !nick.trim() || !selectedGame"></sg-button>
-            <sg-button text="Byt server" @click.native.prevent="restart"></sg-button>
         </form>
         <h4>Välj spel</h4>
         <sg-game-list @selected="selectGame"></sg-game-list>

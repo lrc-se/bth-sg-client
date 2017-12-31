@@ -1,14 +1,17 @@
 <template>
-    <div id="sg-game-list">
-        <div v-if="error">{{ error }}</div>
-        <table v-else>
-            <tr><th>Namn</th><th>Spelare</th><th>Tidsfrist</th></tr>
-            <tr class="sg-game-server" :class="{ selected: selectedIndex == idx }" v-for="game, idx of games" @click="select(idx)">
-                <td>{{ game.name || "Spel #" + (idx + 1) }}</td>
-                <td>{{ game.numPlayers }} / {{ game.maxPlayers }} ({{ game.minPlayers }}+)</td>
-                <td>{{ game.timeout }} s</td>
-            </tr>
-        </table>
+    <div class="sg-game-list">
+        <div class="sg-table">
+            <div class="sg-message" v-if="status == 'updating'">Uppdaterar...</div>
+            <div class="sg-error" v-if="error">{{ error }}</div>
+            <table v-if="status == 'idle' && !error">
+                <tr><th>Namn</th><th>Spelare</th><th>Tidsfrist</th></tr>
+                <tr class="sg-game-server" :class="{ selected: selectedIndex == idx }" v-for="game, idx of games" @click="select(idx)">
+                    <td>{{ game.name || "Spel #" + (idx + 1) }}</td>
+                    <td>{{ game.numPlayers }} / {{ game.maxPlayers }} ({{ game.minPlayers }}+)</td>
+                    <td>{{ game.timeout }} s</td>
+                </tr>
+            </table>
+        </div>
         <sg-button :text="(status == 'updating' ? 'Uppdaterar...' : 'Uppdatera')" :disabled="status == 'updating'" @click.native="update"></sg-button>
     </div>
 </template>
@@ -51,6 +54,7 @@
             update() {
                 let vm = this;
                 vm.status = "updating";
+                vm.error = null;
                 axios.get(`${Client.baseUrl}:${Client.basePort}/api/games`).then(function(res) {
                     if (!res.data || !Array.isArray(res.data.data)) {
                         vm.games = [];
@@ -75,19 +79,13 @@
 </script>
 
 <style>
-    #sg-game-list {
-        height: 100px;
-        overflow-y: auto;
+    .sg-game-list .sg-table {
+        max-height: 7em;
     }
     
-    #sg-game-list table {
-        width: 100%;
-        border-spacing: 0;
-    }
-    
-    #sg-game-list th {
-        font-weight: 700;
-        text-align: left;
+    .sg-game-list .sg-table th:first-child,
+    .sg-game-list .sg-table td:first-child {
+        width: 50%;
     }
     
     .sg-game-server {
@@ -95,6 +93,6 @@
     }
     
     .sg-game-server.selected {
-        outline: 1px solid red;
+        background-color: #eeece9;
     }
 </style>

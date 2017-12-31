@@ -1,15 +1,18 @@
 <template>
-    <div id="sg-score-list">
-        <div v-if="error">{{ error }}</div>
-        <table v-else>
-            <tr><th>Spelare</th><th>Poäng</th><th>Tidpunkt</th></tr>
-            <tr class="sg-score" v-for="score of scores">
-                <td>{{ score.nick }}</td>
-                <td>{{ score.score }}</td>
-                <td>{{ formatDate(score.timestamp) }}</td>
-            </tr>
-        </table>
-        <sg-button :text="(status == 'updating' ? 'Uppdaterar...' : 'Uppdatera')" :disabled="status == 'updating'" @click.native="update"></sg-button>
+    <div class="sg-score-list">
+        <div class="sg-table">
+            <div class="sg-message" v-if="status == 'updating'">Uppdaterar...</div>
+            <div class="sg-error" v-if="error">{{ error }}</div>
+            <table v-if="status == 'idle' && !error">
+                <tr><th>Spelare</th><th>Poäng</th><th>Tidpunkt</th></tr>
+                <tr class="sg-score" v-for="score of scores">
+                    <td>{{ score.nick }}</td>
+                    <td>{{ score.score }}</td>
+                    <td>{{ formatDate(score.timestamp) }}</td>
+                </tr>
+            </table>
+        </div>
+         <sg-button :text="(status == 'updating' ? 'Uppdaterar...' : 'Uppdatera')" :disabled="status == 'updating'" @click.native="update"></sg-button>
     </div>
 </template>
 
@@ -42,6 +45,7 @@
             update() {
                 let vm = this;
                 vm.status = "updating";
+                vm.error = null;
                 axios.get(`${Client.baseUrl}:${Client.basePort}/api/scores`).then(function(res) {
                     if (res.data.error) {
                         vm.scores = [];
@@ -83,18 +87,8 @@
 </script>
 
 <style>
-    #sg-score-list {
-        height: 100px;
-        overflow-y: auto;
-    }
-    
-    #sg-score-list table {
-        width: 100%;
-        border-spacing: 0;
-    }
-    
-    #sg-score-list th {
-        font-weight: 700;
-        text-align: left;
+    .sg-score-list .sg-table th:first-child,
+    .sg-score-list .sg-table td:first-child {
+        width: 50%;
     }
 </style>
