@@ -52,6 +52,8 @@
 
 <style>
     #app {
-        width: 804px;
+        max-width: 1024px;
+        margin: 0 auto;
+        padding: 2em;
     }
 </style>
