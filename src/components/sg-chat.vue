@@ -62,7 +62,8 @@
             
             Client.$on("word", (word) => {
                 this.addNotice(
-                    `* Det är din tur att rita! Det hemliga ordet är "${word.toUpperCase()}".`
+                    `* Det är din tur att rita! Det hemliga ordet är "${word.toUpperCase()}".`,
+                    "word"
                 );
             });
             
@@ -92,5 +93,7 @@
 </script>
 
 <style>
-    
+    #sg-chat {
+        margin-top: 1em;
+    }
 </style>

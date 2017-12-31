@@ -1,32 +1,39 @@
 <template>
     <div id="sg-game">
-        <header>
-            <div id="drawer">Nu ritar: <strong>{{ drawer || "–" }}</strong></div>
-            <div id="word">Ord att rita: <strong>{{ word }}</strong></div>
-            <sg-countdown :seconds="seconds"></sg-countdown>
-        </header>
-        <sg-board ref="board" :draw-type="drawType" :draw-width="drawWidth" :draw-color="drawColor"></sg-board>
-        <div>
-            <sg-button :icon="`${tool}.png`" :selected="drawType == tool" @click.native="drawType = tool" v-for="tool of tools" :key="tool"></sg-button>
+        <div id="sg-game-left">
+            <div id="sg-game-header">
+                <div id="drawer"><strong>Nu ritar:</strong> {{ drawer || "–" }}</div>
+                <div id="word"><strong>Ord att rita:</strong> {{ word || "–" }}</div>
+                <sg-countdown :seconds="seconds"></sg-countdown>
+            </div>
+            <sg-board ref="board" :draw-type="drawType" :draw-width="drawWidth" :draw-color="drawColor"></sg-board>
+            <div>
+                <sg-chat></sg-chat>
+            </div>
         </div>
-        <div>
-            <sg-button :bg-color="color" :selected="drawColor == color" @click.native="drawColor = color" v-for="color of colors" :key="color"></sg-button>
+        <div id="sg-game-right">
+            <div>
+                <label class="line">Ritverktyg:</label>
+                <sg-button :icon="`${tool}.png`" :selected="drawType == tool" @click.native="drawType = tool" v-for="tool of tools" :key="tool"></sg-button>
+            </div>
+            <div>
+                <label class="line">Färg:</label>
+                <sg-button :bg-color="color" :selected="drawColor == color" @click.native="drawColor = color" v-for="color of colors" :key="color"></sg-button>
+            </div>
+            <div>
+                <label class="line">Linjebredd:</label>
+                <input id="sg-game-draw-width" type="range" min="1" max="10" v-model="drawWidth">
+            </div>
+            <br>
+            <div class="center">
+                <sg-button text="Ångra" :disabled="!word" @click.native="undo"></sg-button>
+                <sg-button text="Rensa" :disabled="!word" @click.native="clearBoard"></sg-button>
+            </div>
+            <div>
+                <sg-player-list></sg-player-list>
+            </div>
+            <div class="right"><sg-button text="Lämna spelet" @click.native="disconnect"></sg-button></div>
         </div>
-        <div>
-            Linjebredd: <input type="range" min="1" max="10" v-model="drawWidth">
-        </div>
-        <div>
-            <sg-button text="Ångra" :disabled="!word" @click.native="undo"></sg-button>
-            <sg-button text="Rensa" :disabled="!word" @click.native="clearBoard"></sg-button>
-        </div>
-        <div>
-            Meddelanden
-            <sg-chat></sg-chat>
-        </div>
-        <div>
-            <sg-player-list></sg-player-list>
-        </div>
-        <sg-button text="Lämna spelet" @click.native="disconnect"></sg-button>
     </div>
 </template>
 
@@ -99,6 +106,7 @@
             Client.$on("timeout", this.reset);
             Client.$on("pause", this.reset);
             Client.$on("offline", this.reset);
+            Client.$on("game", this.reset);
             
             Client.$on("part", (nick) => {
                 if (this.drawer === nick) {
@@ -134,8 +142,9 @@
             
             reset() {
                 clearInterval(this.timer);
-                this.seconds = null;
+                this.drawer = null;
                 this.word = null;
+                this.seconds = null;
             },
             
             disconnect() {
@@ -149,12 +158,44 @@
 
 <style>
     #sg-game {
-        width: 804px;
+        display: flex;
     }
     
-    #sg-game header {
+    #sg-game-left,
+    #sg-game-right {
+        display: flex;
+        flex-wrap: wrap;
+        flex-grow: 0;
+    }
+    
+    #sg-game-left > *,
+    #sg-game-right > * {
+        width: 100%;
+    }
+    
+    #sg-game-left {
+        max-width: 804px;
+    }
+    
+    #sg-game-header {
         width: 100%;
         display: flex;
         justify-content: space-between;
+    }
+    
+    #sg-game-right {
+        margin-left: 2em;
+    }
+    
+    #sg-game-right > div:last-child {
+        margin-top: auto;
+    }
+    
+    #sg-game-right > div:last-child .sg-button {
+        margin: 0;
+    }
+    
+    #sg-game-draw-width {
+        width: 100%;
     }
 </style>

@@ -1,5 +1,8 @@
 <template>
     <div id="app">
+        <header>
+            <h1>Skissa & Gissa</h1>
+        </header>
         <sg-connect v-show="panel == 'connect'"></sg-connect>
         <sg-login v-show="panel == 'login'"></sg-login>
         <sg-game v-show="panel == 'game'"></sg-game>
@@ -52,7 +55,7 @@
 
 <style>
     #app {
-        max-width: 1024px;
+        max-width: 1100px;
         margin: 0 auto;
         padding: 2em;
     }

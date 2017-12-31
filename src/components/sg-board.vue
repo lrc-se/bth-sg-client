@@ -127,24 +127,24 @@
 <style>
     #sg-board {
         position: relative;
-        width: 800px;
-        height: 600px;
-        margin: 2px;
-        outline: 2px solid #000;
+        width: 804px;
+        height: 604px;
+        border: 2px solid #33312e;
+        border-radius: 2px;
         background-color: #fff;
     }
     
     #sg-board.drawing {
-        outline-color: #00f;
+        border-color: #00c;
         cursor: crosshair;
     }
     
     #sg-board.correct {
-        outline-color: #080;
+        border-color: #0a0;
     }
     
     #sg-board.timeout {
-        outline-color: #a00;
+        border-color: #c00;
     }
     
     .sg-canvas {

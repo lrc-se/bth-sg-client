@@ -43,12 +43,21 @@
     
     .sg-button.selected {
         border-style: groove;
-        border-color: #888683;
+        border-color: #444340;
+        box-shadow: 0 0 2px rgba(0, 0, 0, .75);
+    }
+    
+    .sg-button.selected:focus {
+        box-shadow: 0 0 5px rgba(0, 0, 0, .5) inset, 0 0 2px rgba(0, 0, 0, .75);
     }
     
     .sg-button:disabled {
         color: inherit;
         opacity: .5;
         cursor: progress;
+    }
+    
+    .sg-button img {
+        display: block;
     }
 </style>

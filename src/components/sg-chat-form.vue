@@ -1,20 +1,30 @@
 <template>
     <div id="sg-chat-form">
-        <input type="text" v-model="message" @keyup.enter.prevent="sendMessage">
-        <input type="button" value="Skicka" @click="sendMessage">
+        <input type="text" v-model="message" @keyup.enter.prevent="sendMessage" @blur="refocus">
+        <div><sg-button text="Skicka" @click.native="sendMessage"></sg-button></div>
     </div>
 </template>
 
 <script>
+    import Vue from "vue";
     import Client from "../client";
+    import SgButton from "./sg-button";
     
     export default {
         name: "sg-chat-form",
+        
+        components: {
+            "sg-button": SgButton
+        },
         
         data() {
             return {
                 message: ""
             };
+        },
+        
+        created() {
+            Client.$on("online", this.refocus);
         },
         
         methods: {
@@ -27,11 +37,32 @@
                     });
                     this.message = "";
                 }
+            },
+            
+            refocus() {
+                Vue.nextTick(() => {
+                    document.querySelector("#sg-chat-form input").focus();
+                });
             }
         }
     };
 </script>
 
 <style>
+    #sg-chat-form {
+        width: 100%;
+        display: flex;
+    }
     
+    #sg-chat-form > input {
+        max-width: none;
+    }
+    
+    #sg-chat-form > div {
+        flex-grow: 0;
+    }
+    
+    #sg-chat-form .sg-button {
+        margin: 0;
+    }
 </style>

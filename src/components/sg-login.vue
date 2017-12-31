@@ -1,9 +1,6 @@
 <template>
     <div id="sg-login">
-        <header>
-            <h1>Skissa & Gissa</h1>
-            <h2>{{ serverName }}</h2>
-        </header>
+        <h2>{{ serverName }}</h2>
         <form @submit.prevent="connect">
             <div>
                 <label for="nick">Smeknamn:</label>

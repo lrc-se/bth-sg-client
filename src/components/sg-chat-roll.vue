@@ -21,21 +21,30 @@
 
 <style>
     #sg-chat-roll {
-        height: 100px;
-        border: 1px solid #000;
+        height: 7em;
+        margin-bottom: 1em;
+        padding: .25em;
+        background-color: #fff;
+        border: 1px solid #33312e;
+        border-radius: 2px;
         overflow-y: scroll;
+        cursor: text;
     }
     
     .sg-chat-msg.notice {
         padding-left: .25em;
-        font-weight: 700;
+        font-weight: 800;
     }
     
     .sg-chat-msg.correct {
-        color: #080;
+        color: #0a0;
     }
     
     .sg-chat-msg.timeout {
-        color: #b00;
+        color: #c00;
+    }
+    
+    .sg-chat-msg.word {
+        color: #00c;
     }
 </style>

@@ -1,8 +1,5 @@
 <template>
     <div id="sg-connect">
-        <header>
-            <h1>Skissa & Gissa</h1>
-        </header>
         <h3>Anslut till server</h3>
         <form @submit.prevent="connect">
             <div>
