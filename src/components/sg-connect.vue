@@ -3,16 +3,17 @@
         <header>
             <h1>Skissa & Gissa</h1>
         </header>
-        <h4>Anslut till server</h4>
+        <h3>Anslut till server</h3>
         <form @submit.prevent="connect">
             <div>
-                <label for="connect-server">Server</label>
-                <input id="connect-server" type="text" v-model="server">
+                <label class="line" for="sg-connect-server">Adress:</label>
+                <input id="sg-connect-server" type="text" required autofocus v-model="server">
             </div>
             <div>
-                <label for="connect-port">Port</label>
-                <input id="connect-port" type="number" v-model="port">
+                <label class="line" for="sg-connect-port">Port:</label>
+                <input id="sg-connect-port" type="number" required v-model="port">
             </div>
+            <br>
             <sg-button :text="(status == 'connecting' ? 'Ansluter...' : 'Anslut')" :disabled="status == 'connecting'"></sg-button>
         </form>
     </div>
@@ -94,5 +95,7 @@
 </script>
 
 <style>
-
+    #sg-connect {
+        text-align: center;
+    }
 </style>
