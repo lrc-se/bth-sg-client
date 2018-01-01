@@ -1,6 +1,6 @@
 {
   "name": "sg-client",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Skissa & Gissa (client)",
   "author": "LRC <kabc16@student.bth.se>",
   "private": true,
