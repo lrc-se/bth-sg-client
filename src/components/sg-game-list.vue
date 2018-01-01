@@ -3,7 +3,7 @@
         <div class="sg-table">
             <div class="sg-message" v-if="status == 'updating'">Uppdaterar...</div>
             <div class="sg-error" v-if="error">{{ error }}</div>
-            <table v-if="status == 'idle' && !error">
+            <table v-if="games.length && status == 'idle' && !error">
                 <tr><th>Namn</th><th>Spelare</th><th>Tidsfrist</th></tr>
                 <tr class="sg-game-server" :class="{ selected: selectedIndex == idx }" v-for="game, idx of games" @click="select(idx)">
                     <td>{{ game.name || "Spel #" + (idx + 1) }}</td>
@@ -11,6 +11,7 @@
                     <td>{{ game.timeout }} s</td>
                 </tr>
             </table>
+            <span v-if="!games.length && status == 'idle' && !error">Inga pågående spel</span>
         </div>
         <div class="right">
             <sg-button :text="(status == 'updating' ? 'Uppdaterar...' : 'Uppdatera')" :disabled="status == 'updating'" @click.native="update"></sg-button>

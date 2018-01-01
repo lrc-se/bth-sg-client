@@ -3,14 +3,15 @@
         <div class="sg-table">
             <div class="sg-message" v-if="status == 'updating'">Uppdaterar...</div>
             <div class="sg-error" v-if="error">{{ error }}</div>
-            <table v-if="status == 'idle' && !error">
+            <table v-if="scores.length && status == 'idle' && !error">
                 <tr><th>Spelare</th><th>Poäng</th><th>Tidpunkt</th></tr>
-                <tr class="sg-score" v-for="score of scores">
+                <tr class="sg-score" v-for="score of scores" v-if="scores.length">
                     <td>{{ score.nick }}</td>
                     <td>{{ score.score }}</td>
-                    <td>{{ formatDate(score.timestamp) }}</td>
+                    <td v-html="formatDate(score.timestamp)"></td>
                 </tr>
             </table>
+            <span v-if="!scores.length && status == 'idle' && !error">Inga resultat sparade ännu</span>
         </div>
         <div class="right">
             <sg-button :text="(status == 'updating' ? 'Uppdaterar...' : 'Uppdatera')" :disabled="status == 'updating'" @click.native="update"></sg-button>
@@ -82,7 +83,7 @@
                     day = "0" + day;
                 }
                 let time = date.toTimeString().substring(0, 8);
-                return `${year}-${month}-${day} ${time}`;
+                return `${year}-${month}-${day}&nbsp;&nbsp;${time}`;
             }
         }
     };
