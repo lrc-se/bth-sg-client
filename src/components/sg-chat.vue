@@ -1,7 +1,7 @@
 <template>
     <div id="sg-chat">
-        <sg-chat-roll ref="chatRoll" :messages="messages"></sg-chat-roll>
-        <sg-chat-form ref="chatForm"></sg-chat-form>
+        <sg-chat-roll :messages="messages"></sg-chat-roll>
+        <sg-chat-form></sg-chat-form>
     </div>
 </template>
 
@@ -13,15 +13,15 @@
     export default {
         name: "sg-chat",
         
+        components: {
+            "sg-chat-roll": SgChatRoll,
+            "sg-chat-form": SgChatForm
+        },
+        
         data() {
             return {
                 messages: []
             };
-        },
-        
-        components: {
-            "sg-chat-roll": SgChatRoll,
-            "sg-chat-form": SgChatForm
         },
         
         created() {

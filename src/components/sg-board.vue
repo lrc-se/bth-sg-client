@@ -12,6 +12,10 @@
     export default {
         name: "sg-board",
         
+        components: {
+            "sg-canvas": SgCanvas
+        },
+        
         props: [
             "draw-type",
             "draw-width",
@@ -20,14 +24,10 @@
         
         data() {
             return {
+                status: "inactive",
                 curShape: {},
-                isDragging: false,
-                status: "inactive"
+                isDragging: false
             };
-        },
-        
-        components: {
-            "sg-canvas": SgCanvas
         },
         
         created() {
@@ -127,8 +127,8 @@
 <style>
     #sg-board {
         position: relative;
-        width: 804px;
-        height: 604px;
+        width: 644px;
+        height: 484px;
         border: 2px solid #33312e;
         border-radius: 2px;
         background-color: #fff;

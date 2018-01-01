@@ -25,6 +25,12 @@
     export default {
         name: "sg-login",
         
+        components: {
+            "sg-button": SgButton,
+            "sg-game-list": SgGameList,
+            "sg-score-list": SgScoreList
+        },
+        
         data() {
             return {
                 status: "idle",
@@ -32,12 +38,6 @@
                 nick: "",
                 selectedGame: null
             };
-        },
-        
-        components: {
-            "sg-button": SgButton,
-            "sg-game-list": SgGameList,
-            "sg-score-list": SgScoreList
         },
         
         created() {
@@ -70,7 +70,3 @@
         }
     };
 </script>
-
-<style>
-
-</style>

@@ -121,6 +121,11 @@ input[type=number] {
     max-width: 75px;
 }
 
+input[type=text]:last-child,
+input[type=number]:last-child {
+    margin-right: 0;
+}
+
 input[type=text]:hover,
 input[type=number]:hover {
     border-style: dotted;

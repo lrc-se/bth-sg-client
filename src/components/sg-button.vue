@@ -28,6 +28,10 @@
         cursor: pointer;
     }
     
+    .sg-button:last-child {
+        margin: 0;
+    }
+    
     .sg-button:not(.colored) {
         background-image: radial-gradient(#eeece9, #eeece9 40%, #cccac7);
     }

@@ -25,17 +25,16 @@
     export default {
         name: "sg-login",
         
+        components: {
+            "sg-button": SgButton
+        },
+        
         data() {
             return {
                 status: "idle",
-                nick: "",
                 server: defaults.server,
                 port: defaults.port
             };
-        },
-        
-        components: {
-            "sg-button": SgButton
         },
         
         created() {

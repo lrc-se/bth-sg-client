@@ -12,7 +12,9 @@
                 </tr>
             </table>
         </div>
-        <sg-button :text="(status == 'updating' ? 'Uppdaterar...' : 'Uppdatera')" :disabled="status == 'updating'" @click.native="update"></sg-button>
+        <div class="right">
+            <sg-button :text="(status == 'updating' ? 'Uppdaterar...' : 'Uppdatera')" :disabled="status == 'updating'" @click.native="update"></sg-button>
+        </div>
     </div>
 </template>
 
@@ -24,6 +26,10 @@
     export default {
         name: "sg-game-list",
         
+        components: {
+            "sg-button": SgButton
+        },
+        
         data() {
             return {
                 status: "idle",
@@ -31,10 +37,6 @@
                 games: [],
                 selectedIndex: -1
             };
-        },
-        
-        components: {
-            "sg-button": SgButton
         },
         
         created() {

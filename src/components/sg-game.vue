@@ -6,10 +6,8 @@
                 <div id="word"><strong>Ord att rita:</strong> {{ word || "–" }}</div>
                 <sg-countdown :seconds="seconds"></sg-countdown>
             </div>
-            <sg-board ref="board" :draw-type="drawType" :draw-width="drawWidth" :draw-color="drawColor"></sg-board>
-            <div>
-                <sg-chat></sg-chat>
-            </div>
+            <sg-board :draw-type="drawType" :draw-width="drawWidth" :draw-color="drawColor"></sg-board>
+            <sg-chat></sg-chat>
         </div>
         <div id="sg-game-right">
             <div>
@@ -29,9 +27,7 @@
                 <sg-button text="Ångra" :disabled="!word" @click.native="undo"></sg-button>
                 <sg-button text="Rensa" :disabled="!word" @click.native="clearBoard"></sg-button>
             </div>
-            <div>
-                <sg-player-list></sg-player-list>
-            </div>
+            <sg-player-list></sg-player-list>
             <div class="right"><sg-button text="Lämna spelet" @click.native="disconnect"></sg-button></div>
         </div>
     </div>
@@ -48,6 +44,14 @@
     export default {
         name: "sg-game",
         
+        components: {
+            "sg-button": SgButton,
+            "sg-countdown": SgCountdown,
+            "sg-board": SgBoard,
+            "sg-chat": SgChat,
+            "sg-player-list": SgPlayerList
+        },
+        
         data() {
             return {
                 drawType: "path",
@@ -56,6 +60,7 @@
                 drawer: null,
                 word: null,
                 seconds: null,
+                timer: null,
                 tools: ["path", "line", "rect", "frect", "oval", "foval"],
                 colors: [
                     "#000",
@@ -73,17 +78,8 @@
                     "#880",
                     "#088",
                     "#808"
-                ],
-                timer: null
+                ]
             };
-        },
-        
-        components: {
-            "sg-countdown": SgCountdown,
-            "sg-board": SgBoard,
-            "sg-button": SgButton,
-            "sg-chat": SgChat,
-            "sg-player-list": SgPlayerList
         },
         
         created() {
@@ -98,6 +94,7 @@
             });
             
             Client.$on("countdown", (sec) => {
+                clearInterval(this.timer);
                 this.seconds = sec;
                 this.timer = setInterval(this.tick, 1000);
             });
@@ -136,7 +133,7 @@
                 if (this.seconds > 0) {
                     this.seconds -= 1;
                 } else {
-                    this.reset();
+                    clearInterval(this.timer);
                 }
             },
             
@@ -187,12 +184,9 @@
         margin-left: 2em;
     }
     
+    #sg-game-right .sg-player-list,
     #sg-game-right > div:last-child {
         margin-top: auto;
-    }
-    
-    #sg-game-right > div:last-child .sg-button {
-        margin: 0;
     }
     
     #sg-game-draw-width {

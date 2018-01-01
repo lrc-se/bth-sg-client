@@ -1,7 +1,7 @@
 <template>
     <div id="app">
         <header>
-            <h1>Skissa & Gissa</h1>
+            <h1>Skissa &amp; Gissa</h1>
         </header>
         <sg-connect v-show="panel == 'connect'"></sg-connect>
         <sg-login v-show="panel == 'login'"></sg-login>
@@ -18,16 +18,16 @@
     export default {
         name: "app",
         
-        data() {
-            return {
-                panel: "connect"
-            };
-        },
-        
         components: {
             "sg-connect": SgConnect,
             "sg-login": SgLogin,
             "sg-game": SgGame
+        },
+        
+        data() {
+            return {
+                panel: "connect"
+            };
         },
         
         created() {
@@ -55,7 +55,7 @@
 
 <style>
     #app {
-        max-width: 1100px;
+        max-width: 992px;
         margin: 0 auto;
         padding: 2em;
     }

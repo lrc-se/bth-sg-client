@@ -1,9 +1,16 @@
+/**
+ * Application startup.
+ */
+
+"use strict";
+
 import Vue from "vue";
 import App from "./app";
 
-Vue.config.productionTip = false;
-
 require("./css/common.css");
+
+
+Vue.config.productionTip = false;
 
 new Vue({
     el: "#app",

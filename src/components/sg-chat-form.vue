@@ -41,7 +41,10 @@
             
             refocus() {
                 Vue.nextTick(() => {
+                    let x = window.pageXOffset;
+                    let y = window.pageYOffset;
                     document.querySelector("#sg-chat-form input").focus();
+                    window.scrollTo(x, y);
                 });
             }
         }
@@ -60,9 +63,5 @@
     
     #sg-chat-form > div {
         flex-grow: 0;
-    }
-    
-    #sg-chat-form .sg-button {
-        margin: 0;
     }
 </style>

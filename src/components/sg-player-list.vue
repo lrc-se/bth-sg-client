@@ -34,5 +34,7 @@
 </script>
 
 <style>
-    
+    .sg-player-list {
+        height: 10em;
+    }
 </style>

@@ -1,5 +1,5 @@
 <template>
-    <canvas class="sg-canvas" width="800" height="600"></canvas>
+    <canvas class="sg-canvas" width="640" height="480"></canvas>
 </template>
 
 <script>
@@ -39,6 +39,8 @@
                     case "foval":                        
                         Gfx.drawEllipse(ctx, shape.points[0], shape.points[1], true);
                         break;
+                    default:
+                        // NOOP
                 }
             },
             

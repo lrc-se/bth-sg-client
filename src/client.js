@@ -109,7 +109,7 @@ function handleHandshake(data) {
         Client.status = "login";
         sendCommand("LEMMEIN", Client.nick);
     } else {
-        Client.disconnect("Felaktigt serversvar vid anslutning.");
+        Client.disconnect("Servern är inte en giltig Skissa & Gissa-server.");
     }
 }
 
@@ -132,7 +132,7 @@ function handleLogin(data) {
             Client.disconnect("Spelet är fullt.");
             break;
         default:
-            Client.disconnect("Felaktigt serversvar vid anslutning.");
+            Client.disconnect("Servern är inte en giltig Skissa & Gissa-server.");
     }
 }
 
@@ -195,9 +195,9 @@ export default new Vue({
         
         
         /**
-         * Disconnects from the S&G server.
+         * Disconnects from S&G game server.
          *
-         * @param   {String}    [msg]   Message to display to user, if any.
+         * @param   {string}    [msg]   Message to display to user, if any.
          */
         disconnect(msg) {
             sendCommand("SEEYA");
@@ -215,7 +215,7 @@ export default new Vue({
         /**
          * Sends a protocol command to server.
          *
-         * @param   {String}    evnt    Name of the event to send command for.
+         * @param   {string}    evnt    Name of the event to send command for.
          * @param   {object}    [data]  Data payload, if any.
          */
         send(evnt, data) {
@@ -228,7 +228,7 @@ export default new Vue({
         /**
          * Emits an internal event and sends the corresponding protocol command to server.
          *
-         * @param   {String}    evnt    Name of the event.
+         * @param   {string}    evnt    Name of the event.
          * @param   {object}    [data]  Data payload, if any.
          */
         emitAndSend(evnt, data) {

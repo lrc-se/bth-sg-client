@@ -12,7 +12,9 @@
                 </tr>
             </table>
         </div>
-         <sg-button :text="(status == 'updating' ? 'Uppdaterar...' : 'Uppdatera')" :disabled="status == 'updating'" @click.native="update"></sg-button>
+        <div class="right">
+            <sg-button :text="(status == 'updating' ? 'Uppdaterar...' : 'Uppdatera')" :disabled="status == 'updating'" @click.native="update"></sg-button>
+        </div>
     </div>
 </template>
 
@@ -24,16 +26,16 @@
     export default {
         name: "sg-score-list",
         
+        components: {
+            "sg-button": SgButton
+        },
+        
         data() {
             return {
                 status: "idle",
                 error: null,
                 scores: []
             };
-        },
-        
-        components: {
-            "sg-button": SgButton
         },
         
         created() {
@@ -72,14 +74,14 @@
                 let date = new Date(timestamp);
                 let year = date.getFullYear();
                 let month = date.getMonth() + 1;
-                let day = date.getDate();
-                let time = date.toTimeString().substring(0, 8);
                 if (month < 10) {
-                    month = `0${month}`;
+                    month = "0" + month;
                 }
+                let day = date.getDate();
                 if (day < 10) {
-                    day = `0${day}`;
+                    day = "0" + day;
                 }
+                let time = date.toTimeString().substring(0, 8);
                 return `${year}-${month}-${day} ${time}`;
             }
         }
@@ -87,6 +89,10 @@
 </script>
 
 <style>
+    .sg-game-list .sg-table {
+        max-height: 14em;
+    }
+    
     .sg-score-list .sg-table th:first-child,
     .sg-score-list .sg-table td:first-child {
         width: 50%;

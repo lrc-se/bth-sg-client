@@ -1,5 +1,5 @@
 <template>
-    <div><strong>Tid kvar:</strong> {{ min }}:{{ sec }}</div>
+    <div class="sg-countdown"><strong>Tid kvar:</strong> {{ min }}:{{ sec }}</div>
 </template>
 
 <script>
