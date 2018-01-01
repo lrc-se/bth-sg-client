@@ -55,7 +55,6 @@
 
 <style>
     #app {
-        max-width: 992px;
         margin: 0 auto;
         padding: 2em;
     }

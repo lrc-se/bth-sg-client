@@ -23,9 +23,9 @@
                 <input id="sg-game-draw-width" type="range" min="1" max="10" v-model="drawWidth">
             </div>
             <br>
-            <div class="center">
+            <div>
                 <sg-button text="Ångra" :disabled="!word" @click.native="undo"></sg-button>
-                <sg-button text="Rensa" :disabled="!word" @click.native="clearBoard"></sg-button>
+                <sg-button text="Rensa rityta" :disabled="!word" @click.native="clearBoard"></sg-button>
             </div>
             <sg-player-list></sg-player-list>
             <div class="right"><sg-button text="Lämna spelet" @click.native="disconnect"></sg-button></div>
@@ -155,6 +155,8 @@
 
 <style>
     #sg-game {
+        width: 928px;
+        margin-top: -1em;
         display: flex;
     }
     
@@ -191,5 +193,6 @@
     
     #sg-game-draw-width {
         width: 100%;
+        margin: 0;
     }
 </style>
