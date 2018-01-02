@@ -2,7 +2,7 @@ checks:
     javascript: true
     
 filter:
-    paths: ["src/"]
+    paths: ["src/*.js", "src/*.vue", "src/*/*.js", "src/*/*.vue"]
 
 build:
     environment:
