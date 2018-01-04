@@ -29,11 +29,12 @@
         
         methods: {
             sendMessage() {
-                if (this.message) {
+                let msg = this.message.trim();
+                if (msg) {
                     Client.emitAndSend("msg", {
                         type: "chat",
                         nick: Client.nick,
-                        text: this.message
+                        text: msg
                     });
                     this.message = "";
                 }
@@ -43,7 +44,7 @@
                 Vue.nextTick(() => {
                     let x = window.pageXOffset;
                     let y = window.pageYOffset;
-                    document.querySelector("#sg-chat-form input").focus();
+                    this.$el.querySelector("input").focus();
                     window.scrollTo(x, y);
                 });
             }
