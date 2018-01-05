@@ -46,6 +46,11 @@
         },
         
         methods: {
+            /**
+             * Selects a game from the list.
+             *
+             * @param   {number}    idx     Row index.
+             */
             select(idx) {
                 if (this.selectedIndex == idx) {
                     idx = -1;
@@ -54,6 +59,10 @@
                 this.$emit("selected", this.games[idx]);
             },
             
+            
+            /**
+             * Updates game info from server.
+             */
             update() {
                 let vm = this;
                 vm.status = "updating";

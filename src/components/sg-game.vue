@@ -83,20 +83,30 @@
         },
         
         created() {
+            // new drawer announced
             Client.$on("drawer", (name) => {
                 this.word = null;
                 this.drawer = name;
             });
             
+            // new word announced
             Client.$on("word", (word) => {
                 this.word = word.toUpperCase();
                 this.drawer = Client.nick;
             });
             
+            // new countdown announced
             Client.$on("countdown", (sec) => {
                 clearInterval(this.timer);
                 this.seconds = sec;
                 this.timer = setInterval(this.tick, 1000);
+            });
+            
+            // player departure announced
+            Client.$on("part", (nick) => {
+                if (this.drawer === nick) {
+                    this.reset();
+                }
             });
             
             Client.$on("correct", this.reset);
@@ -104,15 +114,12 @@
             Client.$on("pause", this.reset);
             Client.$on("offline", this.reset);
             Client.$on("game", this.reset);
-            
-            Client.$on("part", (nick) => {
-                if (this.drawer === nick) {
-                    this.reset();
-                }
-            });
         },
         
         methods: {
+            /**
+             * Undoes the latest shape drawn.
+             */
             undo() {
                 if (!this.word) {
                     return;
@@ -120,6 +127,10 @@
                 Client.emitAndSend("undo");
             },
             
+            
+            /**
+             * Clears the drawing board.
+             */
             clearBoard() {
                 if (!this.word) {
                     return;
@@ -129,6 +140,10 @@
                 }
             },
             
+            
+            /**
+             * Executes a countdown tick.
+             */
             tick() {
                 if (this.seconds > 0) {
                     this.seconds -= 1;
@@ -137,6 +152,10 @@
                 }
             },
             
+            
+            /**
+             * Resets view state.
+             */
             reset() {
                 clearInterval(this.timer);
                 this.drawer = null;
@@ -144,6 +163,10 @@
                 this.seconds = null;
             },
             
+            
+            /**
+             * Disconnect from the game.
+             */
             disconnect() {
                 if (confirm("Är du säker på att du vill lämna spelet?")) {
                     Client.disconnect();

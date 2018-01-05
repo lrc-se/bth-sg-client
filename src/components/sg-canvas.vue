@@ -15,12 +15,20 @@
         },
         
         methods: {
+            /**
+             * Draws a shape on the canvas.
+             *
+             * @param   {object}    shape   Shape object.
+             */
             draw(shape) {
+                // set up context
                 let ctx = this.$el.getContext("2d");
                 ctx.strokeStyle = shape.color;
                 ctx.fillStyle = shape.color;
                 ctx.lineWidth = shape.width;
                 ctx.lineCap = "round";
+                
+                // draw shape
                 switch (shape.type) {
                     case "path":
                     case "line":
@@ -44,11 +52,22 @@
                 }
             },
             
+            
+            /**
+             * Redraws the canvas using shape buffer.
+             */
             redraw() {
                 this.clear();
                 this.shapes.forEach(this.draw);
             },
             
+            
+            /**
+             * Adds a shape to shape buffer.
+             *
+             * @param   {object}    shape   Shape object.
+             * @param   {boolean}   draw    Whether to draw the shape on the canvas immediately.
+             */
             addShape(shape, draw) {
                 this.shapes.push(shape);
                 if (draw) {
@@ -56,6 +75,12 @@
                 }
             },
             
+            
+            /**
+             * Clears the canvas.
+             *
+             * @param   {boolean}   clearShapes     Whether to clear the shape buffer as well.
+             */
             clear(clearShapes) {
                 let ctx = this.$el.getContext("2d");
                 ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
@@ -64,6 +89,10 @@
                 }
             },
             
+            
+            /**
+             * Removes the last drawn shape from the canvas.
+             */
             undo() {
                 this.shapes.pop();
                 this.redraw();

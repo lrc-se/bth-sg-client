@@ -35,6 +35,9 @@
         },
         
         methods: {
+            /**
+             * Sends chat message to server.
+             */
             sendMessage() {
                 let msg = this.message.trim();
                 if (msg) {
@@ -47,6 +50,10 @@
                 }
             },
             
+            
+            /**
+             * Returns focus to chat message input field, preserving scroll position.
+             */
             refocus() {
                 Vue.nextTick(() => {
                     let x = window.pageXOffset;

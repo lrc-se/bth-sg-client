@@ -25,7 +25,9 @@
         },
         
         created() {
+            // new player list received
             Client.$on("players", (players) => {
+                // sort by highest score
                 players.sort((a, b) => b.points - a.points);
                 this.players = players;
             });

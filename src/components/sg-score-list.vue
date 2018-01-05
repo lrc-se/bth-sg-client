@@ -45,6 +45,9 @@
         },
         
         methods: {
+            /**
+             * Updates score info from server.
+             */
             update() {
                 let vm = this;
                 vm.status = "updating";
@@ -71,6 +74,12 @@
                 });
             },
             
+            
+            /**
+             * Formats a date for direct output.
+             *
+             * @param   {number}    timestamp   UNIX timestamp (preferred).
+             */
             formatDate(timestamp) {
                 let date = new Date(timestamp);
                 let year = date.getFullYear();

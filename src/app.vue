@@ -38,14 +38,25 @@
         },
         
         methods: {
+            /**
+             * Switches to connection panel.
+             */
             showConnect() {
                 this.panel = "connect";
             },
             
+            
+            /**
+             * Switches to login panel.
+             */
             showLogin() {
                 this.panel = "login";
             },
             
+            
+            /**
+             * Switches to game panel.
+             */
             showGame() {
                 this.panel = "game";
             }

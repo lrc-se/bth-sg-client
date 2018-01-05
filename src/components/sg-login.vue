@@ -41,28 +41,53 @@
         },
         
         created() {
+            // successful login announced
             Client.$on("login", (name) => {
                 this.serverName = name;
             });
+            
             Client.$on("online", this.reset);
             Client.$on("offline", this.reset);
         },
         
         methods: {
+            /**
+             * Selects a game.
+             *
+             * @param   {object}    game    Game info object.
+             */
             selectGame(game) {
                 this.selectedGame = game;
             },
             
+            
+            /**
+             * Connects to a game.
+             */
             connect() {
+                // safety check
+                if (!this.selectedGame) {
+                    return;
+                }
+                
+                // connect
                 this.status = "connecting";
                 Client.nick = this.nick.trim();
                 Client.connect(this.selectedGame.port);
             },
             
+            
+            /**
+             * Resets view state.
+             */
             reset() {
                 this.status = "idle";
             },
             
+            
+            /**
+             * Returns to connection panel.
+             */
             restart() {
                 this.reset();
                 Client.$emit("restart");

@@ -51,7 +51,11 @@
         },
         
         methods: {
+            /**
+             * Connects to S&G server.
+             */
             connect() {
+                // safety checks
                 if (this.status == "connecting") {
                     return;
                 }
@@ -64,13 +68,15 @@
                     return;
                 }
                 
-                this.status = "connecting";
+                // parse and store connection info
                 Client.baseUrl = this.server.replace(/\/$/, "");
                 Client.basePort = +this.port;
                 if (!/^https?:\/\//.test(Client.baseUrl)) {
                     Client.baseUrl = "http://" + Client.baseUrl;
                 }
                 
+                // connect
+                this.status = "connecting";
                 let vm = this;
                 axios.get(`${Client.baseUrl}:${Client.basePort}/api/info`).then(function(res) {
                     if (!res.data.data || res.data.data.type !== "S&G") {
@@ -92,6 +98,10 @@
                 });
             },
             
+            
+            /**
+             * Resets view state.
+             */
             reset() {
                 this.status = "idle";
             }

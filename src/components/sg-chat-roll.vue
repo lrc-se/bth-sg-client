@@ -14,6 +14,7 @@
         props: ["messages"],
         
         updated() {
+            // scroll to bottom
             this.$el.scrollTop = this.$el.scrollHeight;
         }
     };
