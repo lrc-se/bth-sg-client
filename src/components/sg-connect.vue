@@ -13,6 +13,9 @@
             <br>
             <sg-button :text="(status == 'connecting' ? 'Ansluter...' : 'Anslut')" :disabled="status == 'connecting'"></sg-button>
         </form>
+        <footer v-if="contact.email">
+            <p>Denna S&G-klient tillhandahålls av<br><a :href="'mailto:' + contact.email">{{ contact.title || contact.email }}</a></p>
+        </footer>
     </div>
 </template>
 
@@ -33,7 +36,8 @@
             return {
                 status: "idle",
                 server: defaults.server,
-                port: defaults.port
+                port: defaults.port,
+                contact: defaults.contact || {}
             };
         },
         
@@ -93,5 +97,19 @@
 <style>
     #sg-connect {
         text-align: center;
+    }
+    
+    #sg-connect footer {
+        margin-top: 3em;
+        color: #888683;
+    }
+    
+    #sg-connect footer::before {
+        content: "";
+        width: 75%;
+        height: 1px;
+        margin: 0 auto 1.5em;
+        background-image: linear-gradient(to right, transparent, rgba(51, 49, 46, .25), transparent);
+        display: block;
     }
 </style>
