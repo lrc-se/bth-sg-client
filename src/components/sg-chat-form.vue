@@ -1,5 +1,6 @@
 <template>
     <div id="sg-chat-form">
+        <label>{{ nick }}</label>
         <input type="text" v-model="message" @keyup.enter.prevent="sendMessage" @blur="refocus">
         <div><sg-button text="Skicka" @click.native="sendMessage"></sg-button></div>
     </div>
@@ -21,6 +22,12 @@
             return {
                 message: ""
             };
+        },
+        
+        computed: {
+            nick() {
+                return Client.nick;
+            }
         },
         
         created() {
@@ -56,6 +63,7 @@
     #sg-chat-form {
         width: 100%;
         display: flex;
+        align-items: center;
     }
     
     #sg-chat-form > input {
