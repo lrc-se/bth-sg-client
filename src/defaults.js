@@ -14,6 +14,7 @@ export default {
     port: 1700,
     contact: {
         //title: "John Doe",
-        //email: "test@example.com"
+        //email: "test@example.com",
+        //website: "http://www.example.com/"
     }
 };

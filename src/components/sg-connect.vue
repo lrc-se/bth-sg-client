@@ -13,8 +13,13 @@
             <br>
             <sg-button :text="(status == 'connecting' ? 'Ansluter...' : 'Anslut')" :disabled="status == 'connecting'"></sg-button>
         </form>
-        <footer v-if="contact.email">
-            <p>Denna S&G-klient tillhandahålls av<br><a :href="'mailto:' + contact.email">{{ contact.title || contact.email }}</a></p>
+        <footer v-if="contact.title || contact.email || contact.website">
+            <p>Denna S&G-klient tillhandahålls av</p>
+            <div>
+                <span v-if="contact.title">{{ contact.title }}</span>
+                <span v-if="contact.email"><a :href="'mailto:' + contact.email">{{ contact.email }}</a></span>
+                <span v-if="contact.website"><a :href="contact.website" target="_blank">{{ contact.website }}</a></span>
+            </div>
         </footer>
     </div>
 </template>
@@ -110,6 +115,18 @@
         height: 1px;
         margin: 0 auto 1.5em;
         background-image: linear-gradient(to right, transparent, rgba(51, 49, 46, .25), transparent);
+        display: block;
+    }
+    
+    #sg-connect footer p {
+        margin-bottom: .5em;
+    }
+    
+    #sg-connect footer div {
+        font-size: .875em;
+    }
+    
+    #sg-connect footer span {
         display: block;
     }
 </style>
