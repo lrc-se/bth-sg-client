@@ -61,17 +61,17 @@ tap.test("Test score list", function(t) {
 tap.test("Test date formatter", function(t) {
     let node = vtu.shallow(SgScoreList);
     
-    let timestamp = 1514901449157;
-    t.equal(
-        node.vm.formatDate(timestamp),
-        "2018-01-02&nbsp;&nbsp;14:57:29",
+    let date = node.vm.formatDate(1514901449157);   // 2018-01-02T13:57:29.157Z
+    t.same(
+        [date.substring(0, 9), date.length],
+        ["2018-01-0", 30],
         "correct date format rendered (with zero padding)"
     );
     
-    timestamp = 1514124000886;
-    t.equal(
-        node.vm.formatDate(timestamp),
-        "2017-12-24&nbsp;&nbsp;15:00:00",
+    date = node.vm.formatDate(1514124000886);   // 2017-12-24T14:00:00.886Z
+    t.same(
+        [date.substring(0, 9), date.length],
+        ["2017-12-2", 30],
         "correct date format rendered (without zero padding)"
     );
     t.end();
