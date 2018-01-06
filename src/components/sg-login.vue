@@ -4,7 +4,7 @@
         <form @submit.prevent="connect">
             <div>
                 <label for="nick">Smeknamn:</label>
-                <input id="nick" type="text" required autofocus v-model="nick">
+                <input id="nick" type="text" maxlength="20" required autofocus v-model="nick">
                 <sg-button :text="(status == 'connecting' ? 'Ansluter...' : 'Anslut')" :disabled="status == 'connecting' || !nick.trim() || !selectedGame"></sg-button>
                 <sg-button text="Byt server" @click.native.prevent="restart"></sg-button>
             </div>
@@ -65,14 +65,20 @@
              * Connects to a game.
              */
             connect() {
-                // safety check
-                if (!this.selectedGame) {
+                let nick = this.nick.trim();
+                
+                // safety checks
+                if (!this.selectedGame || !nick) {
+                    return;
+                }
+                if (nick.length > 20) {
+                    alert("Smeknamnet får vara högst 20 tecken långt.");
                     return;
                 }
                 
                 // connect
                 this.status = "connecting";
-                Client.nick = this.nick.trim();
+                Client.nick = nick;
                 Client.connect(this.selectedGame.port);
             },
             
