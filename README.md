@@ -72,8 +72,8 @@ See the [technical discussion section](#technical-discussion) for more in-depth 
 
 - The client is not responsive and requires a certain screen size to be used properly. If necessary, use the browser's zoom function to compensate.
 
-- The distribution-ready client application uses flexbox, Canvas and native Web Sockets features, which together put a lower limit on which browsers are able to run it.
-  In development mode, ES6 syntax is heavily used -- including in the dependencies -- which in turn puts a lower limit on which versions of Node can be used for running/building the application.
+- The distribution-ready client application uses flexbox, HTML5 forms, Canvas and native Web Sockets features, which together put a lower limit on which browsers are able to run it.
+  In development mode, ES6 syntax is heavily used – including in the dependencies – which in turn puts a lower limit on which versions of Node can be used for running/building the application.
 
 
 ### Server structure
@@ -174,7 +174,7 @@ Technical discussion
 
 The client application is wholly separate from its server counterpart and can be hosted on any web server, 
 since it is a self-contained frontend entity that does not require any particular server features in its compiled form. 
-At the same time there is nothing stopping a server owner to host and run the two applications together, but it is not *required* -- 
+At the same time there is nothing stopping a server owner to host and run the two applications together, but it is not *required* – 
 any S&G client can connect to any S&G server, provided that the latter has enabled CORS when applicable.
 
 
@@ -194,7 +194,7 @@ A general, application-wide stylesheet is imported by the startup script, while 
 
 The presentational layer of the application is based entirely on Vue's single file components, which provide good encapsulation of component definition and behavior. 
 Many of these components are themselves made up of other components, where the parent can pass data down to its children through the use of properties. 
-In some cases -- the drawing board, specifically -- the parent also communicates directly with its descendants, 
+In some cases – the drawing board, specifically – the parent also communicates directly with its descendants, 
 triggering functionality on a *single* component instance which cannot be properly handled by the general event system described below.
 
 In all cases except for direct Canvas manipulation, Vue's reactivity system is utilized in full, making GUI updates a breeze. 
@@ -218,7 +218,7 @@ and is very much in keeping with the asynchronous, event-driven nature of JavaSc
 
 The native Web Sockets API now available to browsers provides a perfect way for handling the realtime requirements of the game, 
 completely removing the need for polling (long or otherwise) or other shaky push techniques. 
-The client application needs to send and receive updates as soon as they occur -- with regard to both drawing, chatting/guessing and game flow events -- 
+The client application needs to send and receive updates as soon as they occur – with regard to both drawing, chatting/guessing and game flow events – 
 which the custom JSON protocol makes it easy to do in a uniform manner while still allowing the use of differing data formats *within* the payload. 
 All in all, basing the game on Web Sockets has been very satisfactory.
 
@@ -235,7 +235,7 @@ Travis CI has mostly been rock solid and provides a simple way to ascertain that
 but at times its build process fails due to transient errors not related to the actual repo. Scrutinizer is the more valuable tool of the two, 
 providing valuable feedback for issues that may not directly impact the function of the code, but which are still to be considered bugs.
 
-Still, Scrutinizer has a tendency to misfire at times, identifying issues which are not *actually* errors, but rather a result of the tool's not being aware of the larger picture -- 
+Still, Scrutinizer has a tendency to misfire at times, identifying issues which are not *actually* errors, but rather a result of the tool's not being aware of the larger picture – 
 the implied presence of a browser environment, for example. There is also a blatant drawback for the S&G client specifically, 
 since it only analyzes *.js* files, thereby missing the Vue components entirely, which is a shame since large parts of the logic is located there. 
 This appears to be a general limitation with other comparable services too, however, so it did not seem to be sufficient reason to leave Scrutinizer behind. 
@@ -260,7 +260,7 @@ As a consequence, only a subset of the components and application functions are 
 mostly because the time needed to produce a more extensive test suite has simply not been available.
 
 The test environment has been set up *without* webpack, but *with* Babel, mostly because this was the simplest way to get it to work, but also to keep it as speedy as possible. 
-This still requires a batch of setup code to handle the compilation of *.vue* files, but once in place it has worked rather well. Code coverage is a bit of hit and miss -- 
+This still requires a batch of setup code to handle the compilation of *.vue* files, but once in place it has worked rather well. Code coverage is a bit of hit and miss – 
 the compilation steps seem to confuse the reporter somewhat, especially when it comes to `<style>` sections and files not under test, 
 but the visualization of the main code paths and the values for branches, statements and functions appear to be correct. 
 At least this is the case locally; Scrutinizer seems to get different ideas now and then, so its coverage reports should be taken with an even larger grain of salt.
@@ -269,7 +269,7 @@ It should also be mentioned that ensuring that all intended *functionality* is t
 Just the fact that many or all *code paths* have been traversed does not necessarily mean that the application actually works as expected, 
 since there are many, many possible combinations of internal state that may take much the same logic paths, 
 but may equally well change the outcome depending on just what is contained in said state. In other words, 
-high code coverage in tests in and of itself is not a guarantee for correct code and should not be taken as such -- it's just a number.
+high code coverage in tests in and of itself is not a guarantee for correct code and should not be taken as such – it's just a number.
 
 
 About
