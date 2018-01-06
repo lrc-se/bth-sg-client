@@ -38,13 +38,13 @@ This is not merely due to subjective tastes, but the cause can be sought in the 
 and how they relate to user satisfaction in the long term.
 
 Along, then, comes Vue, which sits somewhere in the middle between Angular and React in the aforementioned regards. But do we really need *another* new framework, 
-now that the industry has finally taken some steps, however small, towards making up its mind? The answer, I submit, is "yes" � when this framework is Vue.
+now that the industry has finally taken some steps, however small, towards making up its mind? The answer, I submit, is "yes" – when this framework is Vue.
 
 
 Features
 --------
 
-The architecture and use of Vue should be familiar to users of both React and AngularJS, as it shares significant features with both of them -- 
+The architecture and use of Vue should be familiar to users of both React and AngularJS, as it shares significant features with both of them – 
 by the creators' own admission. What Vue has done, however, is take the *good* parts of those frameworks, while leaving the less attractive parts behind, 
 combining them into a new whole that is greater than the sum of its parts.
 
@@ -65,7 +65,7 @@ For the top level the template can be defined in the main *.html* file, and for 
 
 A component can have internal data properties (defined in the component), external data properties (defined in markup when the component is included in a template), 
 and computed data properties (return values of functions), which are in turn available to both the component's method as instance properties, 
-and to the template as variables. This makes it easy to construct views, since these variables can be placed more or less anywhere in the regular markup -- 
+and to the template as variables. This makes it easy to construct views, since these variables can be placed more or less anywhere in the regular markup – 
 and if needed, the full power of JavaScript expressions is available as well.
 
 ###### Example
@@ -98,7 +98,7 @@ making it easy to achieve presentational control that responds to user (or backe
         <tr><th>Player</th><th>Score</th></tr>
         <tr v-for="player of players" :class="{ winner: player.winner }">
             <td>{{ player.name }}</td>
-            <td>{{ player.score || "�" }}</td>
+            <td>{{ player.score || "–" }}</td>
         </tr>
     </table>
     <p v-else>No scores to show</p>
@@ -121,7 +121,7 @@ var scores = new Vue({
 #### Single file components
 
 Reusable components normally need to have their template defined in a string literal, which puts severe limits on things like readability and syntax highlighting. 
-To solve this Vue offers *single file components*, which define the template, script *and* style parts of a components in -- you guessed it -- a single file. 
+To solve this Vue offers *single file components*, which define the template, script *and* style parts of a components in – you guessed it – a single file. 
 This does, however, require a build step where this *.vue* file is compiled into a form that Vue can use.
 
 The main advantages to this approach include clear separation of the constituent parts of the component, with accurate syntax highlighting for them all, 
@@ -141,7 +141,7 @@ All Vue instances, and therefore all components, are also event emitters in thei
 This is useful mainly for child-to-parent communication, where the parent component listens to events emitted by the child component and reacts accordingly. 
 Vue also offers shorthands for native events, such as clicks and keypresses.
 
-##### Example
+###### Example
 
 __users.vue__
 
@@ -214,17 +214,17 @@ Technically, this is achieved by compiling the component templates into *render 
 
 Another core feature of Vue is its *reactivity system*, which enables it to react to changes in data without the developer's having to trigger redraw functions manually. 
 It does this by creating transparent getters and setters for all registered data attributes and properties of a component, 
-through which it can detect changes and determine what effects -- if any -- they will have on the DOM.
+through which it can detect changes and determine what effects – if any – they will have on the DOM.
 
 The reactivity system extends to all occurrences of the involved objects, meaning that changes propagate through whatever connections the developer has set up, 
-so that other parts of the component -- or of other, linked components -- that depend on the same object in some way or other are *also* updated, 
+so that other parts of the component – or of other, linked components – that depend on the same object in some way or other are *also* updated, 
 including in computed properties. In other words, developers can rest assured that if they expect that a change *should* propagate, it *will* propagate, 
-without their having to do anything about it other than make sure the appropriate data property is updated -- Vue will take care of the rest.
+without their having to do anything about it other than make sure the appropriate data property is updated – Vue will take care of the rest.
 
-Taken together, these two features -- the reactive virtual DOM -- make for a very efficient platform for managing view state, 
+Taken together, these two features – the reactive virtual DOM – make for a very efficient platform for managing view state, 
 with regard to both coding requirements (or lack thereof) and rendering speed in the browser (which has a high impact on user experience).
 
-#### Example
+###### Example
 
 __app.vue__
 
@@ -275,7 +275,7 @@ __user.vue__
 </script>
 ```
 
-Whenever the text in the input field changes, so does the text in the child component, including the derived slug version of the username -- 
+Whenever the text in the input field changes, so does the text in the child component, including the derived slug version of the username – 
 and if there is no text entered, the child component will not render anything at all. Note that this is all handled declaratively, 
 completely without developer intervention at runtime.
 
@@ -301,7 +301,7 @@ which make development considerably more efficient.
 Comparison to other frameworks
 ------------------------------
 
-Vue has many similarities with other JavaScript frontend frameworks out there, but there also exist clear differences -- 
+Vue has many similarities with other JavaScript frontend frameworks out there, but there also exist clear differences – 
 otherwise there would be no point in having it in the first place. Here is my take on some of them.
 
 
@@ -311,7 +311,7 @@ AngularJS developers will recognize large parts of Vue's template syntax, but th
 is drastically simpler than that of AnuglarJS (and AngularJS apps), with a much shallower and *shorter* learning curve. 
 Vue also offers considerably better performance than AngularJS, due to both core design decisions and the existence of the virtual DOM.
 
-AngularJS's so-called digest cycle can also be quite unpredictable, making it difficult to know just when the view has actually finished rendering and can be safely accessed -- 
+AngularJS's so-called digest cycle can also be quite unpredictable, making it difficult to know just when the view has actually finished rendering and can be safely accessed – 
 a problem which Vue's reactivity system neatly solves.
 
 Vue is significantly smaller than AngularJS, but the latter also includes much more functionality out of the box, such as AJAX helpers and filters. 
@@ -321,14 +321,14 @@ Finally, there is an extensive collection of AngularJS add-ons available online,
 
 ### React
 
-The virtual DOM, reactivity system and composable components are concepts that are shared by React and Vue, so they are necessarily quite similar -- but not identical. 
+The virtual DOM, reactivity system and composable components are concepts that are shared by React and Vue, so they are necessarily quite similar – but not identical. 
 For example, a clear advantage of React is its large ecosystem and selection of existing components.
 
 Vue embraces standard HTML and CSS in its template system, whereas React relies on JSX, which is actually just a syntactic layer upon plain JavaScript. 
 This makes Vue templates simpler to read and write, especially in single file component form, 
 and especially to developers who are more comfortable with presentational code than JavaScript as such. That said, Vue supports JSX too, just in case.
 
-On a technical level, Vue provides simpler (and automatic) dependency management between components, making it potentially more performant when triggering redraws due to state changes -- 
+On a technical level, Vue provides simpler (and automatic) dependency management between components, making it potentially more performant when triggering redraws due to state changes – 
 or at least removes the burden of implementing optimization checks from the developer. React also lacks a simple option to be used *without* a build step, 
 whereas Vue can be leveraged as-is in a browser, and the latter is also somewhat smaller in size.
 
@@ -341,7 +341,7 @@ since in many cases things only need to be *added* to the existing code rather t
 This minimal framework also relies on components and a virtual DOM created by render functions, but in its basic setup puts the requirement to write the latter on the developer. 
 JSX can be brought in to help, but when not available one is left with no choice but to build one's templates programmatically. 
 This is often very cumbersome, and readability is very low, especially to people from an HTML/CSS background. 
-It also severely hampers separation of concerns as there is no actual *view* -- there is just JavaScript.
+It also severely hampers separation of concerns as there is no actual *view* – there is just JavaScript.
 
 Despite its small size, Mithril includes both AJAX support and routing, which Vue does not.
 
@@ -358,4 +358,5 @@ you will consider going with Vue. You won't regret it.
 
 ---
 
-*/ __[LRC](mailto:kabc16@student.bth.se)__, January 2018*
+*// __[LRC](mailto:kabc16@student.bth.se)__*  
+*January 2018*
