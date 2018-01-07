@@ -2,7 +2,7 @@
     <div id="sg-login">
         <h2>{{ serverName }}</h2>
         <form @submit.prevent="connect">
-            <div>
+            <div class="center">
                 <label for="sg-connect-nick">Smeknamn:</label>
                 <input id="sg-connect-nick" type="text" maxlength="20" required autofocus v-model="nick">
                 <sg-button :text="(status == 'connecting' ? 'Ansluter...' : 'Anslut')" :disabled="status == 'connecting' || !nick.trim() || !selectedGame"></sg-button>
@@ -102,10 +102,6 @@
 </script>
 
 <style>
-    #sg-login form {
-        text-align: center;
-    }
-    
     #sg-connect-nick {
         width: 200px;
     }
