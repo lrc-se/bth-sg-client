@@ -7,7 +7,7 @@ Skissa & Gissa (client)
 [![Scrutinizer Code Coverage](https://scrutinizer-ci.com/g/lrc-se/bth-sg-client/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/lrc-se/bth-sg-client/?branch=master)
 
 
-This is the client part of a JavaScript-based re-implementation of the Swedish game **Skissa & Gissa**.
+This is the client part of a JavaScript-based online re-implementation of the Swedish game **Skissa & Gissa**.
 
 [Go to server](https://github.com/lrc-se/bth-sg-server)
 
@@ -70,10 +70,12 @@ See the [technical discussion section](#technical-discussion) for more in-depth 
 
 - The standard browser alert and confirm dialogs currently employed are not very pretty and should be replaced by an in-application modal dialog component somewhere down the line.
 
-- The client is not responsive and requires a certain screen size to be used properly. If necessary, use the browser's zoom function to compensate.
+- The client is not responsive and requires a certain screen size to be used properly; if necessary, use the browser's zoom function to compensate. 
+  The drawing board is also based on mouse events, and therefore will not currently work on touch-only devices.
 
 - The distribution-ready client application uses flexbox, HTML5 forms, Canvas and native Web Sockets features, which together put a lower limit on which browsers are able to run it.
-  In development mode, ES6 syntax is heavily used – including in the dependencies – which in turn puts a lower limit on which versions of Node can be used for running/building the application.
+  In development mode, ES6 syntax is heavily used – including in the dependencies – which in turn puts a lower limit on which versions of Node can be used for running, 
+  building and testing the application.
 
 
 ### Server structure
@@ -129,7 +131,7 @@ Development
 -----------
 
 When all dependencies have been installed, the application can either be launched with webpack's development server, 
-enabling so-called hot reload (recompilation and reintegration) of source files, or be built for production. 
+enabling so-called hot reload (recompilation and reintegration of source files), or be built for production. 
 The latter action will produce a distributable collection of static files in the *dist* directory, 
 which can be uploaded to and served from any webhost.
 
@@ -193,7 +195,7 @@ A general, application-wide stylesheet is imported by the startup script, while 
 #### Components
 
 The presentational layer of the application is based entirely on Vue's single file components, which provide good encapsulation of component definition and behavior. 
-Many of these components are themselves made up of other components, where the parent can pass data down to its children through the use of properties. 
+Many of these components are themselves made up of other components, where the parent passes data down to its children through the use of tag attributes in the markup. 
 In some cases – the drawing board, specifically – the parent also communicates directly with its descendants, 
 triggering functionality on a *single* component instance which cannot be properly handled by the general event system described below.
 
@@ -208,7 +210,7 @@ At the heart of the application sits the `client` module, which is a `Vue` insta
 Specifically, it reacts to incoming protocol commands by emitting events that the components that make up the GUI handle however they see fit. 
 This prevents tight two-way coupling between components without a parent-child relationship, as well as between the client module (backend) and the individual components (frontend), 
 and facilitates separation of concerns. The client module need not be aware of what consequences its events have, or who (if anyone) listens to them in turn, 
-and the GUI components can use the module to emit application-level events of their own, with the same conditions.
+and the GUI components can use the module to emit application-level events of their own, where the same conditions apply.
 
 Taken together, this makes for a very simple architecture of loosely coupled components, where each constituent part is only directly responsible for its own state, 
 and is very much in keeping with the asynchronous, event-driven nature of JavaScript.
@@ -233,11 +235,11 @@ and does not require a connection with another service to do it.
 
 Travis CI has mostly been rock solid and provides a simple way to ascertain that the application passes all tests, 
 but at times its build process fails due to transient errors not related to the actual repo. Scrutinizer is the more valuable tool of the two, 
-providing valuable feedback for issues that may not directly impact the function of the code, but which are still to be considered bugs.
+providing useful feedback for issues that may not directly impact the functioning of the code, but which are still to be considered bugs.
 
 Still, Scrutinizer has a tendency to misfire at times, identifying issues which are not *actually* errors, but rather a result of the tool's not being aware of the larger picture – 
-the implied presence of a browser environment, for example. There is also a blatant drawback for the S&G client specifically, 
-since it only analyzes *.js* files, thereby missing the Vue components entirely, which is a shame since large parts of the logic is located there. 
+the implied presence of a browser environment, for example. There is also a blatant drawback for the S&G client specifically since only *.js* files are analyzed, 
+thereby missing the Vue components entirely, which is a shame since large parts of the logic are located there. 
 This appears to be a general limitation with other comparable services too, however, so it did not seem to be sufficient reason to leave Scrutinizer behind. 
 Given these constraints, the code quality score awarded can only be described as highly sufficient.
 
@@ -256,7 +258,7 @@ so code coverage reporting is very simple to get up and running without any furt
 The test cases rely on [`vue-test-utils`](https://vue-test-utils.vuejs.org/en/), together with its required dependencies, to provide a simple framework for mounting, 
 mutating and verifying individual Vue components, facilitating things such as DOM traversal and simulated interactions without the need for a browser. 
 As such, testing the simpler components in isolation is fairly easy, but things quickly get more complicated once the application-wide integrations begin to assert (NPI) themselves. 
-As a consequence, only a subset of the components and application functions are covered by tests, 
+As a consequence, only a subset of the components and application functions are covered by tests at this time, 
 mostly because the time needed to produce a more extensive test suite has simply not been available.
 
 The test environment has been set up *without* webpack, but *with* Babel, mostly because this was the simplest way to get it to work, but also to keep it as speedy as possible. 
@@ -265,7 +267,7 @@ the compilation steps seem to confuse the reporter somewhat, especially when it 
 but the visualization of the main code paths and the values for branches, statements and functions appear to be correct. 
 At least this is the case locally; Scrutinizer seems to get different ideas now and then, so its coverage reports should be taken with an even larger grain of salt.
 
-It should also be mentioned that ensuring that all intended *functionality* is tested is more important than merely reaching a high coverage score. 
+It should also be mentioned that, in general, ensuring that all intended *functionality* is tested is more important than merely reaching a high coverage score. 
 Just the fact that many or all *code paths* have been traversed does not necessarily mean that the application actually works as expected, 
 since there are many, many possible combinations of internal state that may take much the same logic paths, 
 but may equally well change the outcome depending on just what is contained in said state. In other words, 
@@ -276,5 +278,5 @@ About
 -----
 
 **Type:** School project @[BTH](https://www.bth.se/)  
-**License:** MIT  
+**License:** CC-BY-NC-SA-4.0  
 **Author:** [LRC](mailto:kabc16@student.bth.se)
