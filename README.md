@@ -53,7 +53,8 @@ which in turn depends heavily on [webpack](https://webpack.js.org/), [Babel](htt
 to compile/transpile it into a distributable format. The client relies on an S&G server for initial data retrieval through a simple JSON-based API, 
 and all subsequent gameplay-related communication is handled via Web Sockets using a custom, S&G-specific protocol (also JSON-based).
 
-See the [technical discussion section](#technical-discussion) for more in-depth descriptions of the constituent parts.
+See the [technical discussion section](#technical-discussion) for more in-depth descriptions of the constituent parts, and the separate 
+[protocol specification](https://github.com/lrc-se/bth-sg-server/blob/master/protocol.md) in the server repo for more information on the protocol format.
 
 
 #### Limitations
