@@ -8,7 +8,7 @@ import axios from "axios";
 
 
 // timeout for AJAX requests
-axios.defaults.timeout = 15000;
+axios.defaults.timeout = 10000;
 
 export default {
     // default server address
