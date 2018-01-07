@@ -32,8 +32,7 @@
         
         created() {
             Client.$on("restart", this.showConnect);
-            Client.$on("login", this.showLogin);
-            Client.$on("offline", this.showLogin);
+            Client.$on(["login", "offline"], this.showLogin);
             Client.$on("online", this.showGame);
         },
         

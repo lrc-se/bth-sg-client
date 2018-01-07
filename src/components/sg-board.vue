@@ -61,9 +61,7 @@
                 this.isDragging = false;
             });
             
-            Client.$on("drawer", this.reset);
-            Client.$on("pause", this.reset);
-            Client.$on("offline", this.reset);
+            Client.$on(["drawer", "pause", "offline"], this.reset);
         },
         
         methods: {

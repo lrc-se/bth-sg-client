@@ -46,8 +46,7 @@
                 this.serverName = name;
             });
             
-            Client.$on("online", this.reset);
-            Client.$on("offline", this.reset);
+            Client.$on(["online", "offline"], this.reset);
         },
         
         methods: {

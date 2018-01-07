@@ -41,8 +41,7 @@
         },
         
         created() {
-            Client.$on("login", this.update);
-            Client.$on("offline", this.update);
+            Client.$on(["login", "offline"], this.update);
         },
         
         methods: {

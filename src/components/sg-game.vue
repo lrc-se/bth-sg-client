@@ -109,11 +109,7 @@
                 }
             });
             
-            Client.$on("correct", this.reset);
-            Client.$on("timeout", this.reset);
-            Client.$on("pause", this.reset);
-            Client.$on("offline", this.reset);
-            Client.$on("game", this.reset);
+            Client.$on(["correct", "timeout", "pause", "offline", "game"], this.reset);
         },
         
         methods: {
