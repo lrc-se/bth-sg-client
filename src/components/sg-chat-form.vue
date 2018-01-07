@@ -73,6 +73,10 @@
         align-items: center;
     }
     
+    #sg-chat-form > label {
+        white-space: nowrap;
+    }
+    
     #sg-chat-form > input {
         max-width: none;
     }

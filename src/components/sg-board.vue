@@ -181,12 +181,12 @@
     }
     
     #sg-board.drawing {
-        border-color: #00c;
+        border-color: #00b;
         cursor: crosshair;
     }
     
     #sg-board.correct {
-        border-color: #0a0;
+        border-color: #090;
     }
     
     #sg-board.timeout {

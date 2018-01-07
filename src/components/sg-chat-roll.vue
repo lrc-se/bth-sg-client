@@ -33,12 +33,12 @@
     }
     
     .sg-chat-msg.notice {
-        padding-left: .25em;
+        padding-left: .125em;
         font-weight: 800;
     }
     
     .sg-chat-msg.correct {
-        color: #0a0;
+        color: #090;
     }
     
     .sg-chat-msg.timeout {
@@ -46,6 +46,6 @@
     }
     
     .sg-chat-msg.word {
-        color: #00c;
+        color: #00b;
     }
 </style>

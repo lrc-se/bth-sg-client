@@ -37,6 +37,7 @@
 
 <style>
     .sg-player-list {
-        height: 10em;
+        height: 12em;
+        overflow-y: auto;
     }
 </style>

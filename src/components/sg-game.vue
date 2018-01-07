@@ -196,7 +196,7 @@
     }
     
     #sg-game-left {
-        max-width: 804px;
+        max-width: 644px;
     }
     
     #sg-game-header {

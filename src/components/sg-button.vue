@@ -42,17 +42,16 @@
     
     .sg-button:focus {
         outline: none;
-        box-shadow: 0 0 5px rgba(0, 0, 0, .5) inset;
+        box-shadow: 0 0 5px rgba(0, 0, 0, .667) inset;
     }
     
     .sg-button.selected {
-        border-style: groove;
-        border-color: #444340;
-        box-shadow: 0 0 2px rgba(0, 0, 0, .75);
+        border-style: solid;
+        box-shadow: 0 0 0 1px rgba(0, 0, 0, .333);
     }
     
     .sg-button.selected:focus {
-        box-shadow: 0 0 5px rgba(0, 0, 0, .5) inset, 0 0 2px rgba(0, 0, 0, .75);
+        box-shadow: 0 0 5px rgba(0, 0, 0, .667) inset, 0 0 0 1px rgba(0, 0, 0, .333);
     }
     
     .sg-button:disabled {

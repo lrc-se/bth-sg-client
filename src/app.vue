@@ -66,7 +66,7 @@
 
 <style>
     #app {
-        margin: 0 auto;
+        margin: auto;
         padding: 2em;
     }
 </style>
