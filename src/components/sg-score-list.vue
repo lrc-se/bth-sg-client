@@ -98,8 +98,17 @@
 </script>
 
 <style>
-    .sg-game-list .sg-table {
-        max-height: 14em;
+    .sg-score-list .sg-table {
+        height: 9em;
+    }
+    
+    .sg-score-list .sg-table + div::before {
+        content: "";
+        width: 100%;
+        height: 1px;
+        margin-bottom: 1em;
+        background-image: linear-gradient(to right, transparent, rgba(51, 49, 46, .25));
+        display: block;
     }
     
     .sg-score-list .sg-table th:first-child,

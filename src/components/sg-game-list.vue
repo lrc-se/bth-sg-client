@@ -91,7 +91,16 @@
 
 <style>
     .sg-game-list .sg-table {
-        max-height: 7em;
+        height: 6em;
+    }
+    
+    .sg-game-list .sg-table + div::before {
+        content: "";
+        width: 100%;
+        height: 1px;
+        margin-bottom: 1em;
+        background-image: linear-gradient(to right, transparent, rgba(51, 49, 46, .25));
+        display: block;
     }
     
     .sg-game-list .sg-table th:first-child,

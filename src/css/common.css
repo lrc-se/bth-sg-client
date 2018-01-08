@@ -167,7 +167,6 @@ input[type=number]:focus {
 }
 
 .sg-table {
-    margin-bottom: 1em;
     overflow-x: auto;
 }
 
