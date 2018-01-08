@@ -41,11 +41,12 @@
             sendMessage() {
                 let msg = this.message.trim();
                 if (msg) {
-                    Client.emitAndSend("msg", {
+                    Client.$emit("msg", {
                         type: "chat",
                         nick: Client.nick,
                         text: msg
                     });
+                    Client.send("msg", msg);
                     this.message = "";
                 }
             },
