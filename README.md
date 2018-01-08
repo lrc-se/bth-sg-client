@@ -60,7 +60,7 @@ See the [technical discussion section](#technical-discussion) for more in-depth 
 #### Limitations
 
 - Neither the client nor the server supports user identification, so high scores are only tied to nicknames repeat occurrences of which may or may not belong to the same person. 
-  There is therefore also no guarantee that a specific person's favorite nickname is available at a specific time, since there is no way to restrict its use.
+  There is therefore also no guarantee that a specific person's favorite nickname is available in a specific game at a specific time, since there is no way to restrict its use.
 
 - The set of available drawing tools is fairly limited, but should offer sufficient possibilities to draw most if not all things encountered.
 
@@ -196,7 +196,7 @@ A general, application-wide stylesheet is imported by the startup script, while 
 #### Components
 
 The presentational layer of the application is based entirely on Vue's single file components, which provide good encapsulation of component definition and behavior. 
-Many of these components are themselves made up of other components, where the parent passes data down to its children through the use of tag attributes in the markup. 
+Many of these components are themselves made up of other components, where the parent passes data down to its children through the use of data-bound tag attributes in the markup. 
 In some cases – the drawing board, specifically – the parent also communicates directly with its descendants, 
 triggering functionality on a *single* component instance which cannot be properly handled by the general event system described below.
 
@@ -208,9 +208,11 @@ which makes it very easy to perform such updates in response to the events outli
 #### Event system
 
 At the heart of the application sits the `client` module, which is a `Vue` instance that serves as both the client-side Web Sockets listener and a central event bus. 
-Specifically, it reacts to incoming protocol commands by emitting events that the components that make up the GUI handle however they see fit. 
-This prevents tight two-way coupling between components without a parent-child relationship, as well as between the client module (backend) and the individual components (frontend), 
-and facilitates separation of concerns. The client module need not be aware of what consequences its events have, or who (if anyone) listens to them in turn, 
+Specifically, it reacts to incoming protocol commands by emitting events that the components that make up the GUI handle however they see fit, 
+and does in turn send outgoing protocol commands at the request of those same components. 
+The event-based communication prevents tight two-way coupling between components without a parent-child relationship, 
+as well as between the client module (backend) and the individual components (frontend), and facilitates separation of concerns. 
+The client module need not be aware of what consequences its events have, or who (if anyone) listens to them in turn, 
 and the GUI components can use the module to emit application-level events of their own, where the same conditions apply.
 
 Taken together, this makes for a very simple architecture of loosely coupled components, where each constituent part is only directly responsible for its own state, 
@@ -234,13 +236,13 @@ These services have been selected due to ease of use and provided functionality,
 eliminating the need to register for yet another couple of online accounts. Scrutinizer also has the advantage that it can generate the code coverage report by itself, 
 and does not require a connection with another service to do it.
 
-Travis CI has mostly been rock solid and provides a simple way to ascertain that the application passes all tests, 
+Travis CI provides a simple way to ascertain that the application passes all tests and has mostly been rock solid, 
 but at times its build process fails due to transient errors not related to the actual repo. Scrutinizer is the more valuable tool of the two, 
 providing useful feedback for issues that may not directly impact the functioning of the code, but which are still to be considered bugs.
 
 Still, Scrutinizer has a tendency to misfire at times, identifying issues which are not *actually* errors, but rather a result of the tool's not being aware of the larger picture – 
 the implied presence of a browser environment, for example. There is also a blatant drawback for the S&G client specifically since only *.js* files are analyzed, 
-thereby missing the Vue components entirely, which is a shame since large parts of the logic are located there. 
+thereby missing the Vue components (*.vue*) entirely, which is a shame since large parts of the logic are located there. 
 This appears to be a general limitation with other comparable services too, however, so it did not seem to be sufficient reason to leave Scrutinizer behind. 
 Given these constraints, the code quality score awarded can only be described as highly sufficient.
 
@@ -265,7 +267,7 @@ mostly because the time needed to produce a more extensive test suite has simply
 The test environment has been set up *without* webpack, but *with* Babel, mostly because this was the simplest way to get it to work, but also to keep it as speedy as possible. 
 This still requires a batch of setup code to handle the compilation of *.vue* files, but once in place it has worked rather well. Code coverage is a bit of hit and miss – 
 the compilation steps seem to confuse the reporter somewhat, especially when it comes to `<style>` sections and files not under test, 
-but the visualization of the main code paths and the values for branches, statements and functions appear to be correct. 
+but the visualization of the main code paths and the summarized values for branches, statements and functions appear to be correct. 
 At least this is the case locally; Scrutinizer seems to get different ideas now and then, so its coverage reports should be taken with an even larger grain of salt.
 
 It should also be mentioned that, in general, ensuring that all intended *functionality* is tested is more important than merely reaching a high coverage score. 
