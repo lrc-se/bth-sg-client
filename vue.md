@@ -45,7 +45,7 @@ Features
 --------
 
 The architecture and use of Vue should be familiar to users of both React and AngularJS, as it shares significant features with both of them – 
-by the creators' own admission. What Vue has done, however, is take the *good* parts of those frameworks, while leaving the less attractive parts behind, 
+by the creators' own admission. What Vue has done, however, is take the *good* parts of those frameworks while leaving the less attractive parts behind, 
 combining them into a new whole that is greater than the sum of its parts.
 
 
@@ -64,7 +64,7 @@ For the top level the template can be defined in the main *.html* file, and for 
 ##### View state
 
 A component can have internal data properties (defined in the component), external data properties (defined in markup when the component is included in a template), 
-and computed data properties (return values of functions), which are in turn available to both the component's method as instance properties, 
+and computed data properties (return values of functions), which are in turn available to both the component's methods as instance properties, 
 and to the template as variables. This makes it easy to construct views, since these variables can be placed more or less anywhere in the regular markup – 
 and if needed, the full power of JavaScript expressions is available as well.
 
@@ -125,7 +125,7 @@ To solve this Vue offers *single file components*, which define the template, sc
 This does, however, require a build step where this *.vue* file is compiled into a form that Vue can use.
 
 The main advantages to this approach include clear separation of the constituent parts of the component, with accurate syntax highlighting for them all, 
-while maintaining encapsulation for the component as a whole. The result is an entity that is more easily handled, 
+while still maintaining encapsulation for the component as a whole. The result is an entity that is more easily handled, 
 especially when the size and complexity of the application under development starts to grow.
 
 The subsequent examples all use single file components with ES6 syntax, which the build step can easily handle with tools like [Babel](https://babeljs.io/).
@@ -162,7 +162,7 @@ __users.vue__
     import UserList from "./user-list";
     
     export default {
-        name: "app",
+        name: "users",
         components: { "user-list": UserList },
         data() {
             return {
