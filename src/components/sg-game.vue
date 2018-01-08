@@ -2,8 +2,8 @@
     <div id="sg-game">
         <div id="sg-game-left">
             <div id="sg-game-header">
-                <div id="drawer"><strong>Nu ritar:</strong> {{ drawer || "–" }}</div>
-                <div id="word"><strong>Ord att rita:</strong> {{ word || "–" }}</div>
+                <div id="sg-drawer"><strong>Nu ritar:</strong> {{ drawer || "–" }}</div>
+                <div id="sg-word" :class="{ drawing: !!word }"><strong>Ord att rita:</strong> <span>{{ word || "–" }}</span></div>
                 <sg-countdown :seconds="seconds"></sg-countdown>
             </div>
             <sg-board :draw-type="drawType" :draw-width="drawWidth" :draw-color="drawColor"></sg-board>
@@ -213,5 +213,9 @@
     #sg-game-draw-width {
         width: 100%;
         margin: 0;
+    }
+    
+    #sg-word.drawing span {
+        color: #00b;
     }
 </style>
