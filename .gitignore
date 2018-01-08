@@ -14,4 +14,5 @@ yarn-error.log*
 *.njsproj
 *.sln
 
-/build
+/build/.nyc_output
+/build/coverage
